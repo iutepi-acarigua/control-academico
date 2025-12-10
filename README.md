@@ -3,7 +3,6 @@ repositorio para el sistema de control academico del IUTEPI Acarigua
 
 # 🌟 Guía de Trabajo en Equipo
 Este documento explica las normas básicas para trabajar en equipo usando **GitHub Projects** y **GitHub Flow**.  
-Está diseñado especialmente para miembros sin experiencia previa en trabajo colaborativo, Git o GitHub.
 
 El objetivo es mantener el proyecto ordenado, evitar confusiones y asegurar que todos puedan contribuir sin miedo.
 
