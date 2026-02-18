@@ -94,6 +94,9 @@ git pull origin main
 
 # 2.3 Tareas
 Aqui las tareas a realizar:
+---
+
+# Tareas:
 - Tarea 1: Modelo academia.solicitud. Crear el modelo con los campos necesarios: nombre, apellido, cédula/DNI, correo, teléfono, carrera solicitada (Many2one) y adjuntos (Documentos de identidad/Título).
 
 - Tarea 2: Estados de la Solicitud. Implementar un campo state (Selection) con los estados: borrador, enviado, validado, rechazado.
