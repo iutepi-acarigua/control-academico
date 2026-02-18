@@ -89,3 +89,16 @@ Si ya tienes el repo clonado:
 
 ```bash
 git pull origin main
+
+
+
+# Tareas:
+- Tarea 1: Modelo academia.solicitud. Crear el modelo con los campos necesarios: nombre, apellido, cédula/DNI, correo, teléfono, carrera solicitada (Many2one) y adjuntos (Documentos de identidad/Título).
+
+- Tarea 2: Estados de la Solicitud. Implementar un campo state (Selection) con los estados: borrador, enviado, validado, rechazado.
+
+- Tarea 3: Secuencia Automática. Configurar un ir.sequence para que cada solicitud tenga un número único (ej. INS-2024-001).
+
+- Tarea 4: Controlador Web (controllers/main.py). Crear la ruta /inscripcion que renderice el formulario y el método POST que reciba los datos y cree el registro en academia.solicitud.
+
+- Tarea 5: Validación de Duplicados. Lógica en Python que verifique si ya existe una solicitud con ese mismo número de cédula o correo para evitar spam o registros dobles.
