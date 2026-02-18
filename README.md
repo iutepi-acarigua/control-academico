@@ -90,7 +90,7 @@ Si ya tienes el repo clonado:
 ```bash
 git pull origin main
 
-
+---
 
 # Tareas:
 - Tarea 1: Modelo academia.solicitud. Crear el modelo con los campos necesarios: nombre, apellido, cédula/DNI, correo, teléfono, carrera solicitada (Many2one) y adjuntos (Documentos de identidad/Título).
