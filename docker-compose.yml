@@ -1,3 +1,4 @@
+version: '3.8'
 
 services:
   db:
@@ -24,6 +25,9 @@ services:
     volumes:
       - odoo-data:/var/lib/odoo
       - ./custom-addons:/mnt/extra-addons
+      - ./config:/etc/odoo               # Nuevo: Para el archivo de configuración
+      - ./logs:/var/log/odoo             # Nuevo: Para los logs
+    command: --config=/etc/odoo/odoo.conf --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
     restart: unless-stopped
 
 volumes:
