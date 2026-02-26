@@ -1,18 +1,19 @@
 {
-    'name': 'Estudiantes',
+    'name': 'registration_module',
     'version': '1.0',
-    'description': '',
-    'summary': '',
-    'author': '',
+    'description': 'Cosos',
+    'summary': 'cositos',
+    'author': 'Me',
     'website': '',
     'license': 'LGPL-3',
-    'category': '',
+    'category': 'Others',
     'depends': [
         'base'
     ],
     'data': [
         ''
     ],
+    'installable': True,
     'auto_install': False,
     'application': True
     
