@@ -215,3 +215,4 @@ config/*
 !config/.gitkeep
 
 config/odoo.conf
+docker-compose.yml
