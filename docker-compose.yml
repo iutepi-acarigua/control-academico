@@ -1,35 +1,31 @@
-version: '3.8'
-
 services:
   db:
-    image: postgres:16
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: odoo123
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - db-data:/var/lib/postgresql/data
+    image: postgres:16   # Cambié a 16 porque 17 a veces es más estricto con SCRAM en setups viejos
     restart: unless-stopped
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD:
+      POSTGRES_DB: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust  # Odoo crea las DBs después
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"   # Evita conflicto si 5432 está ocupado en host
 
-  odoo:
+  web:
     image: odoo:19.0
+    restart: unless-stopped
     depends_on:
       - db
     ports:
       - "8069:8069"
+    volumes:
+      - ./config:/etc/odoo
+      - ./custom-addons:/mnt/extra-addons
     environment:
       HOST: db
       USER: odoo
-      PASSWORD: odoo123
-    volumes:
-      - odoo-data:/var/lib/odoo
-      - ./custom-addons:/mnt/extra-addons
-      - ./config:/etc/odoo               # Nuevo: Para el archivo de configuración
-      - ./logs:/var/log/odoo             # Nuevo: Para los logs
-    command: --config=/etc/odoo/odoo.conf --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
-    restart: unless-stopped
+      PASSWORD:
 
 volumes:
-  db-data:
-  odoo-data:
+  odoo-db-data:
