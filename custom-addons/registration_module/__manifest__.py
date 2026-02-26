@@ -3,7 +3,7 @@
     'version': '1.0',
     'description': 'Cosos',
     'summary': 'cositos',
-    'author': 'Me',
+    'author': '5to Semestre',
     'website': '',
     'license': 'LGPL-3',
     'category': 'Others',
