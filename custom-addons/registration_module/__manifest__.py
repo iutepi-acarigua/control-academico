@@ -1,5 +1,5 @@
 {
-    'name': 'Estudiantes',
+    'name': 'registration_module',
     'version': '1.0',
     'description': '',
     'summary': '',

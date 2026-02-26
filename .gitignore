@@ -213,3 +213,5 @@ config/*
 # PERMITIR explícitamente el archivo .gitkeep para mantener la estructura
 !logs/.gitkeep
 !config/.gitkeep
+
+config/odoo.conf
