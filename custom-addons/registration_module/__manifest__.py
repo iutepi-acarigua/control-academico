@@ -1,18 +1,16 @@
 {
-    'name': 'registration_module',
-    'version': '1.0',
-    'description': 'Cosos',
-    'summary': 'cositos',
-    'author': '5to Semestre',
+    'name': 'Registration',
+    'version': '19.0.0.1',
+    'description': 'Registration module for Odoo from study case',
+    'summary': 'Registration module for Odoo from study case',
+    'author': '5to Semestre PR25-3',
     'website': '',
     'license': 'LGPL-3',
     'category': 'Others',
     'depends': [
         'base'
     ],
-    'data': [
-        ''
-    ],
+    'data': [ ],
     'installable': True,
     'auto_install': False,
     'application': True
