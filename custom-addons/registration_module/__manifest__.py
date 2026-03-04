@@ -12,9 +12,9 @@
         'contacts'
     ],
     "data": [
-        "views/registration_menus.xml",
         "security/ir.model.access.csv",
-        "views/registration_inscription_views.xml"
+        "views/registration_inscription_views.xml",
+        "views/registration_menus.xml"
     ],
     'installable': True,
     'auto_install': False,
