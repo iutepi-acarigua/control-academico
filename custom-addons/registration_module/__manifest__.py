@@ -1,5 +1,5 @@
 {
-    'name': 'Registration',
+    'name': 'Registration Module',
     'version': '19.0.0.1',
     'description': 'Registration module for Odoo from study case',
     'summary': 'Registration module for Odoo from study case',
@@ -8,9 +8,14 @@
     'license': 'LGPL-3',
     'category': 'Others',
     'depends': [
-        'base'
+        'base',
+        'contacts'
     ],
-    'data': [ ],
+    "data": [
+        "views/registration_menus.xml",
+        "security/ir.model.access.csv",
+        "views/registration_inscription_views.xml"
+    ],
     'installable': True,
     'auto_install': False,
     'application': True
