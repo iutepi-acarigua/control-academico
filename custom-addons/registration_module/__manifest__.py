@@ -4,7 +4,7 @@
     'description': 'Registration module for Odoo from study case',
     'summary': 'Registration module for Odoo from study case',
     'author': '5to Semestre PR25-3',
-    'website': '',
+    'website': 'None',
     'license': 'LGPL-3',
     'category': 'Others',
     'depends': [
