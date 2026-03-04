@@ -14,11 +14,11 @@ class Inscription(models.Model):
         auto_join=True,
     )
     
-    partner_id = fields.Many2one('res.partner', string='Personal Information', required=True, ondelete='cascade')
+    partner_id = fields.Many2one('res.partner', string='Personal Information', required=True, ondelete='cascade') # ID persona
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirmed', 'Confirmed'),
-        ('cancelled', 'Cancelled')
+        ('cancelled', 'Cancelled') #
     ], string='Status', default='draft', copy=False, required=True)
     birth_date = fields.Date(string='Birth Date', required=True, default=fields.Date.today)
     inscription_date = fields.Date(string='Inscription Date', required=True, default=fields.Date.today)
@@ -54,6 +54,11 @@ class Inscription(models.Model):
         ('other', 'Other')
     ], string='Emergency Contact Relationship', copy=False)
     emergency_contact_direction = fields.Char(string='Emergency Contact Direction', copy=False)
+    user_dni = fields.Binary(string="DNI Attachment", required=True, attachment=True)
+    user_diploma = fields.Binary(string="Diploma Attachment", required=True, attachment=True)
+    user_academic_record = fields.Binary(string="Academic Record Attachment", required=True, attachment=True)
+    user_passport_photo = fields.Binary(string="Passport Photo", required=True, attachment=True)
+    
     
     # Relación Many2one con el modelo Academic Condition, estas seran las condiciones academicas del estudiante, como por ejemplo: Regular, Sabatino, etc.
     # academic_condition = fields.Many2one('registration.academic_condition', string='Academic Condition', required=True)
