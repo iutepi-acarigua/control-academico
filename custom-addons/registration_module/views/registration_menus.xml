@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="registration_module_menu_root" name="Registration Module">
+
+        <menuitem id="registration_module_menu_inscriptions" name="Inscriptions">
+            <menuitem id="registration_inscription_menu_action" action="registration_module.action_registration_inscription" name="Registration Inscriptions"/>
+        </menuitem>
+
+        <!-- <menuitem id="registration_module_menu_settings" name="Settings">
+            <menuitem id="registration_module_menu_courses" action="registration_module.action_registration_courses" name="Courses"/>
+            <menuitem id="registration_module_menu_academic_conditions" action="registration_module.action_registration_academic_conditions" name="Academic Conditions"/>
+        </menuitem> -->
+
+    </menuitem>
+</odoo>
