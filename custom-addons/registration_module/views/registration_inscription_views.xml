@@ -43,7 +43,7 @@
 
     <!-- Action registration.inscription -->
     <record id="action_registration_inscription" model="ir.actions.act_window">
-        <field name="name">Registration Inscription</field>
+        <field name="name">Inscription Menu</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">registration.inscription</field>
         <field name="view_mode">list,form</field>
@@ -51,7 +51,7 @@
         <field name="context">{}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
-                There is no examples click here to add new Registration Inscription.
+                There is no examples click here to add new Inscription.
             </p>
         </field>
     </record>
