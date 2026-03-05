@@ -1,0 +1,104 @@
+from odoo import models, fields
+from odoo.exceptions import ValidationError
+
+class Application(models.Model):
+    _name = 'university.Application'
+    _description = 'Inscription Model for Registration Module'
+    _inherits = {'res.partner': 'partner_id'}
+    
+    # Campo obligatorio para la delegación
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Datos personales (nombre, dirección, etc.)',
+        required=True,
+        ondelete='cascade',           # Borra el partner si borras la inscripción
+        auto_join=True,
+    )
+    state = fields.Selection([
+    ('draft', 'Borrador'),
+    ('sent', 'Enviado'),
+    ('validated', 'Validado'),
+    ('rejected', 'Rechazado')
+], string='Estado', default='draft', copy=False, required=True)
+    partner_id = fields.Many2one('res.partner', string='Personal Information', required=True, ondelete='cascade') # ID persona
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('cancelled', 'Cancelled') #
+    ], string='Status', default='draft', copy=False, required=True)
+    birth_date = fields.Date(string='Birth Date', required=True, default=fields.Date.today)
+    inscription_date = fields.Date(string='Inscription Date', required=True, default=fields.Date.today)
+    number_phone = fields.Char(string='Phone Number', required=True, default='00000000000', size=11, copy=False, help='Enter a valid phone number with 11 digits')
+    nationality = fields.Char(string='Nationality', required=True, default='Venezuelan', copy=False)
+    birth_direction = fields.Char(string='Birth Direction', default='Unknown', copy=False, required=True)
+    discapacity = fields.Boolean(string='Disability', default=False)
+    discapacity_description = fields.Char(string='Disability Description', copy=False)
+    room_phone = fields.Char(string='Room Phone', copy=False)
+    person_type = fields.Selection([
+        ('student', 'Student'),
+        ('teacher', 'Teacher'),
+        ('employee', 'Employee')
+    ], string='Person Type', default='student', copy=False, required=True)
+    emergency_contact_name = fields.Char(string='Emergency Contact Name', copy=False)
+    emergency_contact_phone = fields.Char(string='Emergency Contact Phone', copy=False)
+    emergency_contact_relationship = fields.Selection([
+        ('father', 'Father'),
+        ('mother', 'Mother'),
+        ('brother', 'Brother'),
+        ('sister', 'Sister'),
+        ('friend', 'Friend'),
+        ('other', 'Other'),
+        ('aunt', 'Aunt'),
+        ('uncle', 'Uncle'),
+        ('grandfather', 'Grandfather'),
+        ('grandmother', 'Grandmother'),
+        ('cousin', 'Cousin'),
+        ('neighbor', 'Neighbor'),
+        ('colleague', 'Colleague'),
+        ('partner', 'Partner'),
+        ('guardian', 'Guardian'),
+        ('other', 'Other')
+    ], string='Emergency Contact Relationship', copy=False)
+    emergency_contact_direction = fields.Char(string='Emergency Contact Direction', copy=False)
+    user_dni = fields.Binary(string="DNI Attachment", required=True, attachment=True)
+    user_diploma = fields.Binary(string="Diploma Attachment", required=True, attachment=True)
+    user_academic_record = fields.Binary(string="Academic Record Attachment", required=True, attachment=True)
+    user_passport_photo = fields.Binary(string="Passport Photo", required=True, attachment=True)
+    
+    
+    # Relación Many2one con el modelo Academic Condition, estas seran las condiciones academicas del estudiante, como por ejemplo: Regular, Sabatino, etc.
+    # academic_condition = fields.Many2one('registration.academic_condition', string='Academic Condition', required=True)
+    
+    # Relación Many2one con el modelo Career
+    career_id = fields.Many2one('registration.form.career', string='Career', required=True)
+    
+def action_submit(self):
+    """Pasa el estado de 'draft' a 'sent'."""
+    # Aquí puedes agregar lógica adicional antes de cambiar el estado
+    # Por ejemplo, verificar que todos los campos obligatorios estén completos
+    # o que los archivos hayan sido subidos.
+    for record in self:
+        if not record.user_dni or not record.user_diploma: # Ejemplo de validación simple
+             raise ValidationError("Por favor, adjunte todos los documentos requeridos.")
+        record.state = 'sent'
+
+def action_validate(self):
+    """Pasa el estado de 'sent' a 'validated'."""
+    # Lógica adicional aquí, como enviar notificaciones o integraciones.
+    for record in self:
+        record.state = 'validated'
+
+def action_reject(self):
+    """Pasa el estado de 'sent' o 'validated' a 'rejected'."""
+    # Lógica adicional, como pedir un motivo de rechazo (requiere vista/formulario extra).
+    for record in self:
+        record.state = 'rejected'
+
+def action_reset_to_draft(self):
+    """Opcional: Pasa el estado de 'rejected' a 'draft'. Útil si el estudiante corrige errores."""
+    for record in self:
+        if record.state == 'rejected':
+            record.state = 'draft'
+    
+    
+    
