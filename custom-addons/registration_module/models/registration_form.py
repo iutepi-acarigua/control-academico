@@ -63,8 +63,8 @@ class Inscription(models.Model):
     # Relación Many2one con el modelo Academic Condition, estas seran las condiciones academicas del estudiante, como por ejemplo: Regular, Sabatino, etc.
     # academic_condition = fields.Many2one('registration.academic_condition', string='Academic Condition', required=True)
     
-    # Relación Many2one con el modelo Course, estas seran las materias a las que se inscribira el estudiante, osea las carreras
-    # course_id = fields.Many2one('registration.course', string='Course', required=True)
+    # Relación Many2one con el modelo Career
+    career_id = fields.Many2one('registration.form.career', string='Career', required=True)
     
     
     
