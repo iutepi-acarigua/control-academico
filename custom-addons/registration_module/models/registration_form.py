@@ -13,7 +13,12 @@ class Inscription(models.Model):
         ondelete='cascade',           # Borra el partner si borras la inscripción
         auto_join=True,
     )
-    
+    state = fields.Selection([
+    ('draft', 'Borrador'),
+    ('sent', 'Enviado'),
+    ('validated', 'Validado'),
+    ('rejected', 'Rechazado')
+], string='Estado', default='draft', copy=False, required=True)
     partner_id = fields.Many2one('res.partner', string='Personal Information', required=True, ondelete='cascade') # ID persona
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -66,7 +71,33 @@ class Inscription(models.Model):
     # Relación Many2one con el modelo Career
     career_id = fields.Many2one('registration.form.career', string='Career', required=True)
     
-    
+    def action_submit(self):
+    """Pasa el estado de 'draft' a 'sent'."""
+    # Aquí puedes agregar lógica adicional antes de cambiar el estado
+    # Por ejemplo, verificar que todos los campos obligatorios estén completos
+    # o que los archivos hayan sido subidos.
+    for record in self:
+        if not record.user_dni or not record.user_diploma: # Ejemplo de validación simple
+             raise ValidationError("Por favor, adjunte todos los documentos requeridos.")
+        record.state = 'sent'
+
+def action_validate(self):
+    """Pasa el estado de 'sent' a 'validated'."""
+    # Lógica adicional aquí, como enviar notificaciones o integraciones.
+    for record in self:
+        record.state = 'validated'
+
+def action_reject(self):
+    """Pasa el estado de 'sent' o 'validated' a 'rejected'."""
+    # Lógica adicional, como pedir un motivo de rechazo (requiere vista/formulario extra).
+    for record in self:
+        record.state = 'rejected'
+
+def action_reset_to_draft(self):
+    """Opcional: Pasa el estado de 'rejected' a 'draft'. Útil si el estudiante corrige errores."""
+    for record in self:
+        if record.state == 'rejected':
+            record.state = 'draft'
     
     
     
