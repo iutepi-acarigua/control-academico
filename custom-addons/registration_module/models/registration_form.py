@@ -1,4 +1,5 @@
 from odoo import models, fields
+from odoo.exceptions import ValidationError
 
 class Inscription(models.Model):
     _name = 'registration.inscription'
@@ -71,7 +72,7 @@ class Inscription(models.Model):
     # Relación Many2one con el modelo Career
     career_id = fields.Many2one('registration.form.career', string='Career', required=True)
     
-    def action_submit(self):
+def action_submit(self):
     """Pasa el estado de 'draft' a 'sent'."""
     # Aquí puedes agregar lógica adicional antes de cambiar el estado
     # Por ejemplo, verificar que todos los campos obligatorios estén completos
