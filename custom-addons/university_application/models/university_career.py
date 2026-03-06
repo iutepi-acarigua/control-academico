@@ -1,9 +1,9 @@
-from odoo import models, fields, _ 
+from odoo import models, fields
 
 class UniversityCareer(models.Model):
-
+    # Modelo para el catálogo de carreras disponibles
     _name = 'university.career'
-    _description = 'University Form Career'
+    _description = 'University Career'
 
-    career_name = fields.Char(string="Career Name", required=True, copy=False)
-    description = fields.Char(string="Career Description", required=True, copy=False)
+    name = fields.Char(string="Career Name", required=True, copy=False)
+    description = fields.Text(string="Career Description")
