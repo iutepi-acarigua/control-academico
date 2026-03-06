@@ -1,59 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <!-- View registration.inscription View List -->
-    <record id="view_registration_inscription_list" model="ir.ui.view">
-        <field name="name">view.registration.inscription.list</field>
-        <field name="model">registration.inscription</field>
+    <!-- Vista Kanban de Solicitudes -->
+    <record id="view_university_application_kanban" model="ir.ui.view">
+        <field name="name">university.application.kanban</field>
+        <field name="model">university.application</field>
         <field name="arch" type="xml">
-            <list>
+            <kanban default_group_by="state" quick_create="false" records_draggable="true">
+                <field name="state"/>
                 <field name="name"/>
+                <field name="career_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click shadow-sm border-left-4">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="text-muted mt-1">
+                                    <field name="career_id"/>
+                                </div>
+                                <div class="o_kanban_record_bottom mt-2">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="inscription_date"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="state" widget="label_selection" options="{'classes': {'draft': 'default', 'sent': 'info', 'validated': 'success', 'rejected': 'danger'}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Vista Lista (Tree) -->
+    <record id="view_university_application_list" model="ir.ui.view">
+        <field name="name">university.application.list</field>
+        <field name="model">university.application</field>
+        <field name="arch" type="xml">
+            <list string="Enrollment Applications">
+                <field name="user_passport_photo" widget="image" class="oe_avatar" options="{'size': [50, 50]}"/>
+                <field name="name"/>
+                <field name="career_id"/>
+                <field name="modality_id"/>
+                <field name="inscription_date"/>
+                <field name="state" widget="badge" decoration-info="state == 'sent'" decoration-success="state == 'validated'" decoration-danger="state == 'rejected'"/>
             </list>
         </field>
     </record>
 
-    <!-- View registration.inscription form -->
-    <record id="view_registration_inscription_form" model="ir.ui.view">
-        <field name="name">view.registration.inscription.form</field>
-        <field name="model">registration.inscription</field>
+    <!-- Vista Formulario con Botones de Acción -->
+    <record id="view_university_application_form" model="ir.ui.view">
+        <field name="name">university.application.form</field>
+        <field name="model">university.application</field>
         <field name="arch" type="xml">
-            <form string="Registration Inscription">
+            <form string="Enrollment Application">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" invisible="state != 'draft'" class="oe_highlight"/>
+                    <button name="action_validate" string="Validate" type="object" invisible="state != 'sent'" class="oe_highlight"/>
+                    <button name="action_reject" string="Reject" type="object" invisible="state not in ['sent', 'validated']"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state != 'rejected'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,validated,rejected"/>
+                </header>
                 <sheet>
+                    <field name="user_passport_photo" widget="image" class="oe_avatar"/>
                     <div class="oe_title">
-                        <label for="name"/>
-                        <h1>
-                            <field name="name" placeholder="Name..."/>
-                        </h1>
+                        <label for="name" string="Student Name"/>
+                        <h1><field name="name"/></h1>
                     </div>
+                    <group>
+                        <group string="Academic Information">
+                            <field name="career_id"/>
+                            <field name="modality_id"/>
+                            <field name="inscription_date"/>
+                        </group>
+                        <group string="Personal Details">
+                            <field name="person_type"/>
+                            <field name="email"/>
+                            <field name="number_phone"/>
+                            <field name="birth_date"/>
+                            <field name="nationality"/>
+                            <field name="birth_direction"/>
+                            <field name="room_phone"/>
+                            <field name="discapacity"/>
+                            <field name="discapacity_description" invisible="discapacity == False"/>
+                        </group>
+                    </group>
+                    <group string="Emergency Contact">
+                        <group>
+                            <field name="emergency_contact_name"/>
+                            <field name="emergency_contact_phone"/>
+                        </group>
+                        <group>
+                            <field name="emergency_contact_relationship"/>
+                            <field name="emergency_contact_direction"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attachments" name="attachments">
+                            <group>
+                                <field name="user_dni"/>
+                                <field name="user_diploma"/>
+                                <field name="user_academic_record"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
+                <!-- Chatter para historial y mensajería -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
 
-    <!-- View registration.inscription search -->
-    <record id="view_registration_inscription_search" model="ir.ui.view">
-        <field name="name">view.registration.inscription.search</field>
-        <field name="model">registration.inscription</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name"/>
-            </search>
-        </field>
-    </record>
-
-    <!-- Action registration.inscription -->
-    <record id="action_registration_inscription" model="ir.actions.act_window">
-        <field name="name">Inscription Menu</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">registration.inscription</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[]</field>
-        <field name="context">{}</field>
+    <!-- Acción de Ventana Principal -->
+    <record id="action_university_application" model="ir.actions.act_window">
+        <field name="name">Applications</field>
+        <field name="res_model">university.application</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">
-                There is no examples click here to add new Inscription.
-            </p>
+            <p class="o_view_nocontent_smiling_face">No enrollment applications yet.</p>
         </field>
     </record>
-
 </odoo>

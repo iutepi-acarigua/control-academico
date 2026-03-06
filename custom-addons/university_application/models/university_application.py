@@ -1,104 +1,79 @@
-from odoo import models, fields
+from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
 class Application(models.Model):
-    _name = 'university.Application'
-    _description = 'Inscription Model for Registration Module'
+    # Modelo principal para las solicitudes de inscripción
+    _name = 'university.application'
+    _description = 'University Enrollment Application'
+    _inherit = ['mail.thread', 'mail.activity.mixin'] # Habilita el chatter del backend
     _inherits = {'res.partner': 'partner_id'}
     
-    # Campo obligatorio para la delegación
+    # Relación obligatoria con res.partner (Delegación de herencia)
     partner_id = fields.Many2one(
         'res.partner',
-        string='Datos personales (nombre, dirección, etc.)',
+        string='Personal Information',
         required=True,
-        ondelete='cascade',           # Borra el partner si borras la inscripción
+        ondelete='cascade',
         auto_join=True,
+        help='Stores student personal details like name and address'
     )
-    state = fields.Selection([
-    ('draft', 'Borrador'),
-    ('sent', 'Enviado'),
-    ('validated', 'Validado'),
-    ('rejected', 'Rechazado')
-], string='Estado', default='draft', copy=False, required=True)
-    partner_id = fields.Many2one('res.partner', string='Personal Information', required=True, ondelete='cascade') # ID persona
+    
+    # Flujo de estados para la vista Kanban
     state = fields.Selection([
         ('draft', 'Draft'),
-        ('confirmed', 'Confirmed'),
-        ('cancelled', 'Cancelled') #
-    ], string='Status', default='draft', copy=False, required=True)
+        ('sent', 'Sent'),
+        ('validated', 'Validated'),
+        ('rejected', 'Rejected')
+    ], string='Status', default='draft', copy=False, required=True, tracking=True)
+
+    # Datos adicionales del estudiante
     birth_date = fields.Date(string='Birth Date', required=True, default=fields.Date.today)
     inscription_date = fields.Date(string='Inscription Date', required=True, default=fields.Date.today)
-    number_phone = fields.Char(string='Phone Number', required=True, default='00000000000', size=11, copy=False, help='Enter a valid phone number with 11 digits')
-    nationality = fields.Char(string='Nationality', required=True, default='Venezuelan', copy=False)
-    birth_direction = fields.Char(string='Birth Direction', default='Unknown', copy=False, required=True)
+    nationality = fields.Char(string='Nationality', required=True, default='Venezuelan')
     discapacity = fields.Boolean(string='Disability', default=False)
-    discapacity_description = fields.Char(string='Disability Description', copy=False)
-    room_phone = fields.Char(string='Room Phone', copy=False)
-    person_type = fields.Selection([
-        ('student', 'Student'),
-        ('teacher', 'Teacher'),
-        ('employee', 'Employee')
-    ], string='Person Type', default='student', copy=False, required=True)
-    emergency_contact_name = fields.Char(string='Emergency Contact Name', copy=False)
-    emergency_contact_phone = fields.Char(string='Emergency Contact Phone', copy=False)
+    discapacity_description = fields.Char(string='Disability Description')
+    room_phone = fields.Char(string='Room Phone')
+
+    # Información de contacto de emergencia
+    emergency_contact_name = fields.Char(string='Emergency Contact Name')
+    emergency_contact_phone = fields.Char(string='Emergency Contact Phone')
     emergency_contact_relationship = fields.Selection([
-        ('father', 'Father'),
-        ('mother', 'Mother'),
-        ('brother', 'Brother'),
-        ('sister', 'Sister'),
-        ('friend', 'Friend'),
-        ('other', 'Other'),
-        ('aunt', 'Aunt'),
-        ('uncle', 'Uncle'),
-        ('grandfather', 'Grandfather'),
-        ('grandmother', 'Grandmother'),
-        ('cousin', 'Cousin'),
-        ('neighbor', 'Neighbor'),
-        ('colleague', 'Colleague'),
-        ('partner', 'Partner'),
-        ('guardian', 'Guardian'),
-        ('other', 'Other')
-    ], string='Emergency Contact Relationship', copy=False)
-    emergency_contact_direction = fields.Char(string='Emergency Contact Direction', copy=False)
+        ('father', 'Father'), ('mother', 'Mother'), ('brother', 'Brother'),
+        ('sister', 'Sister'), ('friend', 'Friend'), ('other', 'Other')
+    ], string='Emergency Contact Relationship')
+    emergency_contact_direction = fields.Char(string='Emergency Contact Direction')
+
+    # Documentos adjuntos (Almacenados en filestore mediante attachment=True)
     user_dni = fields.Binary(string="DNI Attachment", required=True, attachment=True)
     user_diploma = fields.Binary(string="Diploma Attachment", required=True, attachment=True)
     user_academic_record = fields.Binary(string="Academic Record Attachment", required=True, attachment=True)
-    user_passport_photo = fields.Binary(string="Passport Photo", required=True, attachment=True)
     
+    user_passport_photo = fields.Image(related='partner_id.image_1920', readonly=False, string="Passport Photo")
     
-    # Relación Many2one con el modelo Academic Condition, estas seran las condiciones academicas del estudiante, como por ejemplo: Regular, Sabatino, etc.
-    # academic_condition = fields.Many2one('registration.academic_condition', string='Academic Condition', required=True)
+    # Relación con el catálogo de carreras y modalidades
+    modality_id = fields.Many2one('university.modality', string='Modality', required=True)
+    career_id = fields.Many2one('university.career', string='Career', required=True)
     
-    # Relación Many2one con el modelo Career
-    career_id = fields.Many2one('registration.form.career', string='Career', required=True)
-    
-def action_submit(self):
-    """Pasa el estado de 'draft' a 'sent'."""
-    # Aquí puedes agregar lógica adicional antes de cambiar el estado
-    # Por ejemplo, verificar que todos los campos obligatorios estén completos
-    # o que los archivos hayan sido subidos.
-    for record in self:
-        if not record.user_dni or not record.user_diploma: # Ejemplo de validación simple
-             raise ValidationError("Por favor, adjunte todos los documentos requeridos.")
-        record.state = 'sent'
+    # Métodos de acción para el flujo de trabajo
+    def action_submit(self):
+        """Pasa la solicitud de Borrador a Enviado tras validar documentos"""
+        for record in self:
+            if not record.user_dni or not record.user_diploma:
+                 raise ValidationError("Please attach all required documents.")
+            record.state = 'sent'
 
-def action_validate(self):
-    """Pasa el estado de 'sent' a 'validated'."""
-    # Lógica adicional aquí, como enviar notificaciones o integraciones.
-    for record in self:
-        record.state = 'validated'
+    def action_validate(self):
+        """Valida la solicitud enviada"""
+        for record in self:
+            record.state = 'validated'
 
-def action_reject(self):
-    """Pasa el estado de 'sent' o 'validated' a 'rejected'."""
-    # Lógica adicional, como pedir un motivo de rechazo (requiere vista/formulario extra).
-    for record in self:
-        record.state = 'rejected'
+    def action_reject(self):
+        """Rechaza la solicitud"""
+        for record in self:
+            record.state = 'rejected'
 
-def action_reset_to_draft(self):
-    """Opcional: Pasa el estado de 'rejected' a 'draft'. Útil si el estudiante corrige errores."""
-    for record in self:
-        if record.state == 'rejected':
-            record.state = 'draft'
-    
-    
-    
+    def action_reset_to_draft(self):
+        """Permite al administrador resetear una solicitud rechazada"""
+        for record in self:
+            if record.state == 'rejected':
+                record.state = 'draft'
