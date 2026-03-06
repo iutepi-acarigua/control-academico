@@ -1,36 +1,30 @@
 {
-    'name': 'University Academic Management',
-    'version': '19.0.1.0.0',
-    'category': 'Education/Administration',
-    'summary': 'Management of university applications, careers, and student enrollment.',
+    'name': 'University Enrollment Management',
+    'version': '1.0',
+    'category': 'Education',
+    'summary': 'Manage university applications, careers, and modalities.',
     'description': """
-        University Academic Management System
-        =====================================
-        This module allows students to submit enrollment applications through the website.
-        University administrators can review, approve, and manage these applications using a backend Kanban board.
+        University Enrollment System
+        ============================
+        * Public enrollment form for students.
+        * Kanban management for applications.
+        * Document management (PDF attachments).
+        * Career and modality catalogs.
     """,
     'author': 'CachapaGroup',
-    'website': 'https://www.youruniversity.edu',
-    'depends': [
-        'base',
-        'website',  # Required for QWeb pages, controllers, and routing
-        'portal',   # Required for external user management and security roles
-        'mail',     # Required to add the chatter (messaging/history) to the backend
-    ],
+    'depends': ['base', 'website', 'mail', 'portal'],
     'data': [
-        # 1. Security (Must be loaded first)
+        # Seguridad (Cargar primero)
         'security/ir.model.access.csv',
-        'security/rules.xml',
 
-        # 2. Backend Views (Administrators)
+        # Vistas del Backend (Administradores)
         'views/backend/university_career_views.xml',
         'views/backend/university_application_views.xml',
-        'views/backend/menu_views.xml',
+        'views/backend/res_partner_views.xml',
+        'views/backend/menus_views.xml',
 
-        # 3. Frontend Views (Students / QWeb)
-        'views/frontend/pages/landing_page.xml',
-        'views/frontend/pages/enrollment_form.xml',
-        'views/frontend/pages/success_page.xml',
+        # Vistas del Frontend (Estudiantes / QWeb)
+        'views/frontend/templates.xml',
     ],
     'installable': True,
     'application': True,
