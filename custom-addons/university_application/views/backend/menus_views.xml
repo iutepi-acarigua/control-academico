@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="registration_module_menu_root" name="Registration Module">
+    <!-- Menú Raíz -->
+    <menuitem id="university_management_menu_root" 
+              name="University Management" 
+              web_icon="university_application,static/description/icon.png"/>
 
-        <menuitem id="registration_module_menu_main" name="Inscriptions">
-            <menuitem id="registration_form_menu_action" 
-                      action="action_registration_inscription" 
-                      name="Inscription Menu" />
-        </menuitem>
+    <!-- Menú Principal: Solicitudes -->
+    <menuitem id="university_application_menu_main" 
+              name="Admissions" 
+              parent="university_management_menu_root" 
+              sequence="10"/>
 
-    </menuitem>
+    <menuitem id="university_application_menu_action" 
+              name="Applications" 
+              parent="university_application_menu_main" 
+              action="action_university_application" 
+              sequence="10"/>
+
+    <!-- Menú de Configuración -->
+    <menuitem id="university_config_menu" 
+              name="Configuration" 
+              parent="university_management_menu_root" 
+              sequence="100"/>
+
+    <!-- Acción para Carreras -->
+    <record id="action_university_career" model="ir.actions.act_window">
+        <field name="name">Careers</field>
+        <field name="res_model">university.career</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="university_career_menu_action" 
+              name="Careers" 
+              parent="university_config_menu" 
+              action="action_university_career" 
+              sequence="10"/>
+
+    <!-- Acción para Modalidades -->
+    <record id="action_university_modality" model="ir.actions.act_window">
+        <field name="name">Modalities</field>
+        <field name="res_model">university.modality</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="university_modality_menu_action" 
+              name="Modalities" 
+              parent="university_config_menu" 
+              action="action_university_modality" 
+              sequence="20"/>
 </odoo>

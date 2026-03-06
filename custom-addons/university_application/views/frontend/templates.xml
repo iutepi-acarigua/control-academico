@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Plantilla de la Página de Inscripción -->
+    <template id="enrollment_page_template" name="University Enrollment Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 py-5" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg o_modified_image_to_bg" style="background-image: url('/university_application/static/src/img/university_bg.jpg'); background-position: 50% 50%;"/>
+                    <div class="container text-center">
+                        <h1 class="display-3 text-white">Enrollment Form</h1>
+                        <p class="lead text-white-75">Join our academic community today.</p>
+                    </div>
+                </section>
+
+                <section class="py-5 bg-light">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 bg-white p-5 shadow-sm rounded">
+                                <form action="/enrollment/submit" method="post" enctype="multipart/form-data" class="o_mark_required">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    
+                                    <h3 class="mb-4 text-primary border-bottom pb-2">Personal Information</h3>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="name" class="form-label">Full Name</label>
+                                            <input type="text" name="name" id="name" class="form-control" required="required"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <input type="email" name="email" id="email" class="form-control" required="required"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="number_phone" class="form-label">Phone Number</label>
+                                            <input type="text" name="number_phone" id="number_phone" class="form-control" required="required"/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="birth_date" class="form-label">Birth Date</label>
+                                            <input type="date" name="birth_date" id="birth_date" class="form-control" required="required"/>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="mt-5 mb-4 text-primary border-bottom pb-2">Academic Selection</h3>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="career_id" class="form-label">Career</label>
+                                            <select name="career_id" id="career_id" class="form-select" required="required">
+                                                <option value="">Select a career...</option>
+                                                <t t-foreach="careers" t-as="career">
+                                                    <option t-att-value="career.id"><t t-esc="career.name"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="modality_id" class="form-label">Modality</label>
+                                            <select name="modality_id" id="modality_id" class="form-select" required="required">
+                                                <option value="">Select a modality...</option>
+                                                <t t-foreach="modalities" t-as="modality">
+                                                    <option t-att-value="modality.id"><t t-esc="modality.name"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="mt-5 mb-4 text-primary border-bottom pb-2">Required Documents (PDF)</h3>
+                                    <div class="mb-3">
+                                        <label for="user_dni" class="form-label">DNI / ID Document</label>
+                                        <input type="file" name="user_dni" id="user_dni" class="form-control" accept="application/pdf" required="required"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="user_diploma" class="form-label">High School Diploma</label>
+                                        <input type="file" name="user_diploma" id="user_diploma" class="form-control" accept="application/pdf" required="required"/>
+                                    </div>
+
+                                    <div class="text-center mt-5">
+                                        <button type="submit" class="btn btn-primary btn-lg px-5">Submit Application</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Plantilla de la Página de Éxito -->
+    <template id="success_page_template" name="Application Success">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <div class="container py-5 text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="alert alert-success py-5 shadow">
+                                <i class="fa fa-check-circle fa-5x mb-3"/>
+                                <h1 class="display-4">Success!</h1>
+                                <p class="lead">Your enrollment application for <strong><t t-esc="application.career_id.name"/></strong> has been submitted successfully.</p>
+                                <hr class="my-4"/>
+                                <p>Our academic department will review your documents. Your application number is: <strong>#<t t-esc="application.id"/></strong>.</p>
+                                <a href="/" class="btn btn-success btn-lg mt-3">Back to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

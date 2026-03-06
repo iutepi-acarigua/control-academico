@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Lista de Carreras -->
+    <record id="view_university_career_list" model="ir.ui.view">
+        <field name="name">university.career.list</field>
+        <field name="model">university.career</field>
+        <field name="arch" type="xml">
+            <list string="University Careers">
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista Formulario de Carreras -->
+    <record id="view_university_career_form" model="ir.ui.view">
+        <field name="name">university.career.form</field>
+        <field name="model">university.career</field>
+        <field name="arch" type="xml">
+            <form string="University Career">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Lista de Modalidades -->
+    <record id="view_university_modality_list" model="ir.ui.view">
+        <field name="name">university.modality.list</field>
+        <field name="model">university.modality</field>
+        <field name="arch" type="xml">
+            <list string="University Modalities">
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista Formulario de Modalidades -->
+    <record id="view_university_modality_form" model="ir.ui.view">
+        <field name="name">university.modality.form</field>
+        <field name="model">university.modality</field>
+        <field name="arch" type="xml">
+            <form string="University Modality">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
