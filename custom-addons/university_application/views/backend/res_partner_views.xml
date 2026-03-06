@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_university" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.university</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Insertamos el Tipo de Persona y el Teléfono Universitario en la ficha de contactos -->
+            <xpath expr="//field[@name='function']" position="before">
+                <field name="person_type" widget="radio" options="{'horizontal': true}"/>
+            </xpath>
+            
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page string="University Data" name="university_data">
+                    <group>
+                        <group string="Additional Info">
+                            <field name="number_phone"/>
+                            <field name="birth_direction"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
