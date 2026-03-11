@@ -1,5 +1,6 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from datetime import date
 
 class Application(models.Model):
     # Modelo principal para las solicitudes de inscripción
@@ -54,12 +55,37 @@ class Application(models.Model):
     modality_id = fields.Many2one('university.modality', string='Modality', required=True)
     career_id = fields.Many2one('university.career', string='Career', required=True)
     
+    # Constraints y Validaciones
+    @api.constrains('partner_id', 'career_id', 'state')
+    def _check_unique_application(self):
+        """Evita duplicados: un estudiante no puede tener más de una solicitud activa por carrera"""
+        for record in self:
+            if record.state != 'rejected':
+                domain = [
+                    ('partner_id', '=', record.partner_id.id),
+                    ('career_id', '=', record.career_id.id),
+                    ('state', '!=', 'rejected'),
+                    ('id', '!=', record.id),
+                ]
+                if self.search_count(domain) > 0:
+                    raise ValidationError(_("This student already has an active application for this career."))
+
+    @api.constrains('birth_date')
+    def _check_birth_date(self):
+        """Valida que el estudiante sea mayor de edad (o tenga al menos 15 años)"""
+        for record in self:
+            if record.birth_date:
+                today = date.today()
+                age = today.year - record.birth_date.year - ((today.month, today.day) < (record.birth_date.month, record.birth_date.day))
+                if age < 15:
+                    raise ValidationError(_("The student must be at least 15 years old to apply."))
+
     # Métodos de acción para el flujo de trabajo
     def action_submit(self):
         """Pasa la solicitud de Borrador a Enviado tras validar documentos"""
         for record in self:
-            if not record.user_dni or not record.user_diploma:
-                 raise ValidationError("Please attach all required documents.")
+            if not record.user_dni or not record.user_diploma or not record.user_academic_record:
+                 raise ValidationError(_("Please attach all required documents (DNI, Diploma, and Academic Record)."))
             record.state = 'sent'
 
     def action_validate(self):

@@ -1,4 +1,6 @@
-from odoo import models, fields
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+import re
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -10,3 +12,16 @@ class ResPartner(models.Model):
         ('teacher', 'Teacher'),
         ('employee', 'Employee')
     ], string='Person Type', default='student')
+
+    _sql_constraints = [
+        ('vat_unique', 'unique(vat)', 'The Identity Document (VAT) must be unique!'),
+    ]
+
+    @api.constrains('number_phone')
+    def _check_number_phone(self):
+        for record in self:
+            if record.number_phone:
+                if not record.number_phone.isdigit():
+                    raise ValidationError(_("The phone number must contain only digits."))
+                if len(record.number_phone) != 11:
+                    raise ValidationError(_("The phone number must be exactly 11 digits long."))
