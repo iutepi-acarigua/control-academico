@@ -106,14 +106,17 @@
                                 <field name="user_academic_record"/>
                             </group>
                         </page>
+                        <page name="records" string="Records">
+                            <div class="oe_chatter">
+                                <field name="message_follower_ids"/>
+                                <field name="activity_ids"/>
+                                <field name="message_ids"/>
+                            </div>
+                        </page>
                     </notebook>
                 </sheet>
                 <!-- Chatter para historial y mensajería -->
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                
             </form>
         </field>
     </record>
