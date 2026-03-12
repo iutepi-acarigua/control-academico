@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Plantilla de la Página de Éxito -->
+    <template id="success_page_template" name="Application Success">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <div class="container py-5 text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="alert alert-success py-5 shadow">
+                                <i class="fa fa-check-circle fa-5x mb-3 text-success"/>
+                                <h1 class="display-4 fw-bold">Success!</h1>
+                                <p class="lead">Your enrollment application for <strong><t t-esc="application.career_id.name"/></strong> has been submitted successfully.</p>
+                                <hr class="my-4"/>
+                                <p>Our academic department will review your documents. Your application number is: <strong>#<t t-esc="application.id"/></strong>.</p>
+                                <div class="mt-4">
+                                    <a href="/university" class="btn btn-success btn-lg px-5 fw-bold">Back to Home</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

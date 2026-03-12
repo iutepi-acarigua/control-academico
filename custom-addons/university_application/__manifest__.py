@@ -24,8 +24,15 @@
         'views/backend/menus_views.xml',
 
         # Vistas del Frontend (Estudiantes / QWeb)
-        'views/frontend/templates.xml',
+        'views/frontend/pages/landing_page.xml',
+        'views/frontend/pages/enrollment.xml',
+        'views/frontend/pages/success_page.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'university_application/static/src/scss/styles.scss',
+        ],
+    },
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

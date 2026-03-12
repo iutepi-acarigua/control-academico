@@ -3,9 +3,17 @@ from odoo import http
 from odoo.http import request
 from odoo.exceptions import ValidationError
 
-class InscriptionController(http.Controller):
+class UniversityController(http.Controller):
+    # Endpoint para la Landing Page
+    @http.route('/university', type='http', auth="public", website=True)
+    def university_index(self, **kwargs):
+        # Buscamos todas las carreras para el catálogo de la landing
+        careers = request.env['university.career'].sudo().search([])
+        return request.render('university_application.landing_page_template', {
+            'careers': careers
+        })
 
-    # --- RUTA GET: Formulario (público, sin login)
+    # Endpoint para renderizar el formulario de inscripción
     @http.route('/enrollment', type='http', auth="public", website=True)
     def enrollment_form(self, **kwargs):
         careers = request.env['university.career'].sudo().search([])

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Plantilla de la Landing Page -->
+    <template id="landing_page_template" name="University Landing Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <!-- Hero Section -->
+                <section class="s_cover parallax s_parallax_is_fixed bg-black-50 py-5" data-scroll-background-ratio="1" style="min-height: 80vh; display: flex; align-items: center;">
+                    <span class="s_parallax_bg o_modified_image_to_bg" style="background-image: url('/university_application/static/src/img/university_hero.jpg'); background-position: 50% 50%;"/>
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10">
+                                <h1 class="display-1 fw-bold text-white mb-4 animate__animated animate__fadeInUp">Build Your Future with Us</h1>
+                                <p class="lead text-white-75 mb-5 fs-4 animate__animated animate__fadeInUp animate__delay-1s">
+                                    Join a global community of innovators. Start your 100% online enrollment process today.
+                                </p>
+                                <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                                    <a href="/enrollment" class="btn btn-primary btn-lg px-5 py-3 fs-5 fw-bold shadow-lg">Start Enrollment Now</a>
+                                    <a href="#careers" class="btn btn-outline-light btn-lg px-5 py-3 fs-5 fw-bold ms-3">Explore Careers</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Banner -->
+                <section class="py-4 bg-primary text-white">
+                    <div class="container">
+                        <div class="row text-center">
+                            <div class="col-md-4 border-end border-white-25">
+                                <h2 class="fw-bold mb-0">15+</h2>
+                                <p class="mb-0 text-white-75">Modern Careers</p>
+                            </div>
+                            <div class="col-md-4 border-end border-white-25">
+                                <h2 class="fw-bold mb-0">5000+</h2>
+                                <p class="mb-0 text-white-75">Active Students</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h2 class="fw-bold mb-0">98%</h2>
+                                <p class="mb-0 text-white-75">Graduate Success</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Careers Catalog -->
+                <section id="careers" class="py-5 bg-light">
+                    <div class="container">
+                        <div class="text-center mb-5">
+                            <h2 class="display-4 fw-bold text-primary">Academic Programs</h2>
+                            <p class="lead text-muted">Discover the career that will define your professional path.</p>
+                            <div class="mx-auto" style="width: 80px; height: 4px; background: var(--primary);"></div>
+                        </div>
+                        <div class="row g-4">
+                            <t t-foreach="careers" t-as="career">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card h-100 border-0 shadow-sm hover-elevate transition-all">
+                                        <div class="card-body p-4">
+                                            <div class="mb-3">
+                                                <i class="fa fa-graduation-cap fa-2x text-primary"></i>
+                                            </div>
+                                            <h4 class="card-title fw-bold text-dark" t-esc="career.name"/>
+                                            <p class="card-text text-muted" t-esc="career.description or 'Excellence in education and research for a globalized world.'"/>
+                                        </div>
+                                        <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                                            <a t-attf-href="/enrollment?career_id={{career.id}}" class="btn btn-link text-primary p-0 fw-bold">Enroll in this career <i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Process Section -->
+                <section class="py-5 bg-white">
+                    <div class="container">
+                        <div class="text-center mb-5">
+                            <h2 class="display-4 fw-bold text-primary">How to Enroll?</h2>
+                            <p class="lead text-muted">Complete your process in 4 simple steps.</p>
+                        </div>
+                        <div class="row text-center g-4">
+                            <div class="col-md-3">
+                                <div class="p-4">
+                                    <div class="bg-primary-light rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                        <span class="h3 fw-bold text-primary mb-0">1</span>
+                                    </div>
+                                    <h5 class="fw-bold">Choose Career</h5>
+                                    <p class="text-muted small">Select your vocation from our catalog.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-4">
+                                    <div class="bg-primary-light rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                        <span class="h3 fw-bold text-primary mb-0">2</span>
+                                    </div>
+                                    <h5 class="fw-bold">Fill Form</h5>
+                                    <p class="text-muted small">Provide your personal information.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-4">
+                                    <div class="bg-primary-light rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                        <span class="h3 fw-bold text-primary mb-0">3</span>
+                                    </div>
+                                    <h5 class="fw-bold">Upload Docs</h5>
+                                    <p class="text-muted small">Attach your DNI and Diploma (PDF).</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-4">
+                                    <div class="bg-primary-light rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                        <span class="h3 fw-bold text-primary mb-0">4</span>
+                                    </div>
+                                    <h5 class="fw-bold">Validation</h5>
+                                    <p class="text-muted small">Wait for our team to review everything.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Call to Action -->
+                <section class="py-5 bg-dark text-white text-center">
+                    <div class="container py-4">
+                        <h2 class="display-5 fw-bold mb-4">Ready to start your journey?</h2>
+                        <a href="/enrollment" class="btn btn-primary btn-lg px-5 py-3 fw-bold">Apply Now</a>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

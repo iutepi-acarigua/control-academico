@@ -22,10 +22,13 @@ services:
     volumes:
       - ./config:/etc/odoo
       - ./custom-addons:/mnt/extra-addons
+      - odoo-web-data:/var/lib/odoo
     environment:
       HOST: db
       USER: odoo
-      PASSWORD:
+      PASSWORD: 
+    command: odoo --dev=all -i university_application
 
 volumes:
   odoo-db-data:
+  odoo-web-data:
