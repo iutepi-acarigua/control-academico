@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_application_fiche">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row align-items-center mb-4">
+                            <div class="col-3 text-center">
+                                <img t-if="o.user_passport_photo" t-att-src="image_data_uri(o.user_passport_photo)" style="max-height: 150px; border-radius: 10px; border: 1px solid #ddd;"/>
+                            </div>
+                            <div class="col-9">
+                                <h2 class="text-primary">REGISTRATION FICHE</h2>
+                                <h4><span t-esc="o.name"/></h4>
+                                <p class="mb-1"><strong>Role:</strong> <span t-esc="o.person_type.title()"/></p>
+                                <p class="mb-1"><strong>Status:</strong> <span t-esc="o.state.upper()"/></p>
+                                <p class="mb-1"><strong>Date:</strong> <span t-esc="o.inscription_date"/></p>
+                            </div>
+                        </div>
+
+                        <!-- General Information -->
+                        <table class="table table-sm table-bordered mt-4">
+                            <thead class="bg-light">
+                                <tr><th colspan="2">Personal Information</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="30%"><strong>Identity Document (RIF/Cedula):</strong></td>
+                                    <td><span t-esc="o.vat"/></td>
+                                </tr>
+                                <tr>
+                                    <td width="30%"><strong>Email:</strong></td>
+                                    <td><span t-esc="o.email"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone:</strong></td>
+                                    <td><span t-esc="o.number_phone"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Birth Date:</strong></td>
+                                    <td><span t-esc="o.birth_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nationality:</strong></td>
+                                    <td><span t-esc="o.nationality"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Student Information -->
+                        <table class="table table-sm table-bordered mt-4" t-if="o.person_type == 'student' and o.career_id">
+                            <thead class="bg-light">
+                                <tr><th colspan="2">Academic Program</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="30%"><strong>Career:</strong></td>
+                                    <td><span t-esc="o.career_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Modality:</strong></td>
+                                    <td><span t-esc="o.modality_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Teacher Information -->
+                        <table class="table table-sm table-bordered mt-4" t-if="o.person_type == 'teacher'">
+                            <thead class="bg-light">
+                                <tr><th colspan="2">Professional Profile</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="30%"><strong>Specialty:</strong></td>
+                                    <td><span t-esc="o.specialty"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Highest Degree:</strong></td>
+                                    <td><span t-esc="o.degree_level.title() if o.degree_level else ''"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Emergency Contact -->
+                        <table class="table table-sm table-bordered mt-4">
+                            <thead class="bg-light">
+                                <tr><th colspan="2">Emergency Contact</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="30%"><strong>Contact Name:</strong></td>
+                                    <td><span t-esc="o.emergency_contact_name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Relationship:</strong></td>
+                                    <td><span t-esc="o.emergency_contact_relationship"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone:</strong></td>
+                                    <td><span t-esc="o.emergency_contact_phone"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mt-5 text-center small text-muted border-top pt-3">
+                            This document is an official record of the University Application System.
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

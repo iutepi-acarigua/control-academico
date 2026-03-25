@@ -21,11 +21,23 @@
                                     
                                     <h3 class="mb-4 text-primary border-bottom pb-2">Personal Information</h3>
                                     <div class="row">
-                                        <div class="col-md-6 mb-3">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="person_type" class="form-label">I am applying as...</label>
+                                            <select name="person_type" id="person_type" class="form-select" required="required" onchange="toggleFields()">
+                                                <option value="student">Student</option>
+                                                <option value="teacher">Teacher</option>
+                                                <option value="employee">Employee</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="vat" class="form-label">RIF / Cedula</label>
+                                            <input type="text" name="vat" id="vat" class="form-control" required="required"/>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
                                             <label for="name" class="form-label">Full Name</label>
                                             <input type="text" name="name" id="name" class="form-control" required="required"/>
                                         </div>
-                                        <div class="col-md-6 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <label for="email" class="form-label">Email Address</label>
                                             <input type="email" name="email" id="email" class="form-control" required="required"/>
                                         </div>
@@ -42,28 +54,30 @@
                                         </div>
                                     </div>
 
-                                    <h3 class="mt-5 mb-4 text-primary border-bottom pb-2">Academic Selection</h3>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="career_id" class="form-label">Career</label>
-                                            <select name="career_id" id="career_id" class="form-select" required="required">
-                                                <option value="">Select a career...</option>
-                                                <t t-foreach="careers" t-as="career">
-                                                    <!-- Se pre-selecciona si viene de la landing page -->
-                                                    <option t-att-value="career.id" t-att-selected="str(career.id) == request.params.get('career_id')">
-                                                        <t t-esc="career.name"/>
-                                                    </option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="modality_id" class="form-label">Modality</label>
-                                            <select name="modality_id" id="modality_id" class="form-select" required="required">
-                                                <option value="">Select a modality...</option>
-                                                <t t-foreach="modalities" t-as="modality">
-                                                    <option t-att-value="modality.id"><t t-esc="modality.name"/></option>
-                                                </t>
-                                            </select>
+                                    <!-- Campos Condicionales para Carreras (Solo Estudiantes) -->
+                                    <div id="academic_selection_div">
+                                        <h3 class="mt-5 mb-4 text-primary border-bottom pb-2">Academic Selection</h3>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="career_id" class="form-label">Career</label>
+                                                <select name="career_id" id="career_id" class="form-select">
+                                                    <option value="">Select a career...</option>
+                                                    <t t-foreach="careers" t-as="career">
+                                                        <option t-att-value="career.id" t-att-selected="str(career.id) == request.params.get('career_id')">
+                                                            <t t-esc="career.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="modality_id" class="form-label">Modality</label>
+                                                <select name="modality_id" id="modality_id" class="form-select">
+                                                    <option value="">Select a modality...</option>
+                                                    <t t-foreach="modalities" t-as="modality">
+                                                        <option t-att-value="modality.id"><t t-esc="modality.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -72,15 +86,77 @@
                                         <label for="user_dni" class="form-label">DNI / ID Document</label>
                                         <input type="file" name="user_dni" id="user_dni" class="form-control" accept="application/pdf" required="required"/>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="user_diploma" class="form-label">High School Diploma</label>
-                                        <input type="file" name="user_diploma" id="user_diploma" class="form-control" accept="application/pdf" required="required"/>
+                                    
+                                    <!-- Documentos solo para estudiantes -->
+                                    <div id="student_docs_div">
+                                        <div class="mb-3">
+                                            <label for="user_diploma" class="form-label">High School Diploma</label>
+                                            <input type="file" name="user_diploma" id="user_diploma" class="form-control" accept="application/pdf"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="user_academic_record" class="form-label">Academic Record</label>
+                                            <input type="file" name="user_academic_record" id="user_academic_record" class="form-control" accept="application/pdf"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campos solo para profesores -->
+                                    <div id="teacher_fields_div" style="display:none;">
+                                        <h3 class="mt-5 mb-4 text-primary border-bottom pb-2">Professional Information</h3>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="specialty" class="form-label">Specialty / Area of Expertise</label>
+                                                <input type="text" name="specialty" id="specialty" class="form-control"/>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="degree_level" class="form-label">Highest Degree Level</label>
+                                                <select name="degree_level" id="degree_level" class="form-select">
+                                                    <option value="bachelor">Bachelor</option>
+                                                    <option value="master">Master</option>
+                                                    <option value="phd">PhD</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="cv_attachment" class="form-label">Curriculum Vitae (PDF)</label>
+                                            <input type="file" name="cv_attachment" id="cv_attachment" class="form-control" accept="application/pdf"/>
+                                        </div>
                                     </div>
 
                                     <div class="text-center mt-5">
                                         <button type="submit" class="btn btn-primary btn-lg px-5">Submit Application</button>
                                     </div>
                                 </form>
+                                
+                                <script>
+                                    function toggleFields() {
+                                        var personType = document.getElementById('person_type').value;
+                                        var academicDiv = document.getElementById('academic_selection_div');
+                                        var studentDocsDiv = document.getElementById('student_docs_div');
+                                        var teacherFieldsDiv = document.getElementById('teacher_fields_div');
+                                        
+                                        if (personType === 'student') {
+                                            academicDiv.style.display = 'block';
+                                            studentDocsDiv.style.display = 'block';
+                                            teacherFieldsDiv.style.display = 'none';
+                                            document.getElementById('career_id').required = true;
+                                            document.getElementById('modality_id').required = true;
+                                        } else if (personType === 'teacher') {
+                                            academicDiv.style.display = 'none';
+                                            studentDocsDiv.style.display = 'none';
+                                            teacherFieldsDiv.style.display = 'block';
+                                            document.getElementById('career_id').required = false;
+                                            document.getElementById('modality_id').required = false;
+                                        } else {
+                                            academicDiv.style.display = 'none';
+                                            studentDocsDiv.style.display = 'none';
+                                            teacherFieldsDiv.style.display = 'none';
+                                            document.getElementById('career_id').required = false;
+                                            document.getElementById('modality_id').required = false;
+                                        }
+                                    }
+                                    // Inicializar al cargar
+                                    document.addEventListener('DOMContentLoaded', toggleFields);
+                                </script>
                             </div>
                         </div>
                     </div>

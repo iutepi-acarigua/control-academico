@@ -13,6 +13,16 @@ class ResPartner(models.Model):
         ('employee', 'Employee')
     ], string='Person Type', default='student')
 
+    # Fields for Teachers
+    cv_attachment = fields.Binary(string='Curriculum Vitae', attachment=True)
+    specialty = fields.Char(string='Specialty/Area of Expertise')
+    degree_level = fields.Selection([
+        ('bachelor', 'Bachelor'),
+        ('master', 'Master'),
+        ('phd', 'PhD'),
+        ('other', 'Other')
+    ], string='Degree Level')
+
     _sql_constraints = [
         ('vat_unique', 'unique(vat)', 'The Identity Document (VAT) must be unique!'),
     ]

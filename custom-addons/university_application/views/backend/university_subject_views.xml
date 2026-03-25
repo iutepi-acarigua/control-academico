@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Árbol (Lista) de Materias -->
+    <record id="view_university_subject_list" model="ir.ui.view">
+        <field name="name">university.subject.list</field>
+        <field name="model">university.subject</field>
+        <field name="arch" type="xml">
+            <list string="Subjects">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="credits"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista Formulario de Materias -->
+    <record id="view_university_subject_form" model="ir.ui.view">
+        <field name="name">university.subject.form</field>
+        <field name="model">university.subject</field>
+        <field name="arch" type="xml">
+            <form string="Subject Detail">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. Mathematics I"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="credits"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Prerequisites" name="prerequisites">
+                            <field name="prerequisite_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para el Catálogo de Materias -->
+    <record id="action_university_subject" model="ir.actions.act_window">
+        <field name="name">Subjects Catalog</field>
+        <field name="res_model">university.subject</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a new subject in the system.
+            </p>
+        </field>
+    </record>
+</odoo>

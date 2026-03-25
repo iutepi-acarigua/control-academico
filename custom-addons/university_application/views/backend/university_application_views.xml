@@ -58,6 +58,7 @@
         <field name="arch" type="xml">
             <form string="Enrollment Application">
                 <header>
+                    <button name="%(university_application.action_report_university_application)d" string="Print Fiche" type="action" class="oe_highlight"/>
                     <button name="action_submit" string="Submit" type="object" invisible="state != 'draft'" class="oe_highlight"/>
                     <button name="action_validate" string="Validate" type="object" invisible="state != 'sent'" class="oe_highlight"/>
                     <button name="action_reject" string="Reject" type="object" invisible="state not in ['sent', 'validated']"/>
@@ -71,13 +72,14 @@
                         <h1><field name="name"/></h1>
                     </div>
                     <group>
-                        <group string="Academic Information">
-                            <field name="career_id"/>
-                            <field name="modality_id"/>
+                        <group string="Academic Information" invisible="person_type != 'student'">
+                            <field name="career_id" required="person_type == 'student'"/>
+                            <field name="modality_id" required="person_type == 'student'"/>
                             <field name="inscription_date"/>
                         </group>
                         <group string="Personal Details">
                             <field name="person_type"/>
+                            <field name="vat" string="Identity Document (RIF/Cedula)" required="1"/>
                             <field name="email"/>
                             <field name="number_phone"/>
                             <field name="birth_date"/>
@@ -102,8 +104,9 @@
                         <page string="Attachments" name="attachments">
                             <group>
                                 <field name="user_dni"/>
-                                <field name="user_diploma"/>
-                                <field name="user_academic_record"/>
+                                <field name="user_diploma" invisible="person_type != 'student'"/>
+                                <field name="user_academic_record" invisible="person_type != 'student'"/>
+                                <field name="cv_attachment" invisible="person_type != 'teacher'"/>
                             </group>
                         </page>
                         <page name="records" string="Records">

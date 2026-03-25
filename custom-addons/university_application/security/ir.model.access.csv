@@ -2,3 +2,5 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_university_application_user,university.application.user,model_university_application,,1,1,1,1
 access_university_career_user,university.career.user,model_university_career,,1,1,1,1
 access_university_modality_user,university.modality.user,model_university_modality,,1,1,1,1
+access_university_subject_user,university.subject.user,model_university_subject,,1,1,1,1
+access_university_career_line_user,university.career.line.user,model_university_career_line,,1,1,1,1

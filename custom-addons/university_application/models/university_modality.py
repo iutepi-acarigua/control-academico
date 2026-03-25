@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 class UniversityModality(models.Model):
-    # Nombre técnico unificado para la modalidad de inscripción
+    # Unified technical name for enrollment modality
     _name = 'university.modality'
     _description = 'University Inscription Modality'
 

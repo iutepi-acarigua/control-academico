@@ -11,11 +11,19 @@
             </xpath>
             
             <xpath expr="//page[@name='internal_notes']" position="before">
-                <page string="University Data" name="university_data">
+                <page string="University Profile" name="university_data">
                     <group>
-                        <group string="Additional Info">
+                        <!-- Información compartida -->
+                        <group string="Personal &amp; Contact">
                             <field name="number_phone"/>
                             <field name="birth_direction"/>
+                        </group>
+                        
+                        <!-- Información específica de Profesor (Condicional) -->
+                        <group string="Professional Profile (Teacher)" invisible="person_type != 'teacher'">
+                            <field name="specialty" required="person_type == 'teacher'"/>
+                            <field name="degree_level" required="person_type == 'teacher'"/>
+                            <field name="cv_attachment" widget="binary" filename="name"/>
                         </group>
                     </group>
                 </page>

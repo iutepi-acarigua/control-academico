@@ -18,7 +18,10 @@
         'security/ir.model.access.csv',
 
         # Vistas del Backend (Administradores)
+        'views/backend/university_subject_views.xml',
         'views/backend/university_career_views.xml',
+        'views/backend/university_application_reports.xml',
+        'views/backend/university_application_report_template.xml',
         'views/backend/university_application_views.xml',
         'views/backend/res_partner_views.xml',
         'views/backend/menus_views.xml',

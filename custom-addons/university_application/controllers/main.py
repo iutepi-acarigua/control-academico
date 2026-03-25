@@ -27,108 +27,107 @@ class UniversityController(http.Controller):
     @http.route('/enrollment/submit', type='http', auth="user", methods=['POST'], website=True, csrf=True)
     def submit_enrollment(self, **kwargs):
         # 1. Extraer datos del formulario
+        person_type = kwargs.get('person_type', 'student')
         name = kwargs.get('name', '').strip()
         email = kwargs.get('email', '').strip()
-        phone = kwargs.get('number_phone', '').strip()  # ← usa 'phone' en partner
+        vat = kwargs.get('vat', '').strip()
+        phone = kwargs.get('number_phone', '').strip()
         birth_date = kwargs.get('birth_date')
-        inscription_date = kwargs.get('inscription_date') or fields.Date.today()
-        nationality = kwargs.get('nationality', 'Venezuelan').strip()
-        discapacity = kwargs.get('discapacity') == 'on'
-        discapacity_description = kwargs.get('discapacity_description', '').strip()
-        room_phone = kwargs.get('room_phone', '').strip()
+        
+        # Datos académicos (solo para estudiantes)
+        modality_id = kwargs.get('modality_id') if person_type == 'student' else False
+        career_id = kwargs.get('career_id') if person_type == 'student' else False
 
-        emergency_contact_name = kwargs.get('emergency_contact_name', '').strip()
-        emergency_contact_phone = kwargs.get('emergency_contact_phone', '').strip()
-        emergency_contact_relationship = kwargs.get('emergency_contact_relationship')
-        emergency_contact_direction = kwargs.get('emergency_contact_direction', '').strip()
+        # Datos profesionales (solo para profesores)
+        specialty = kwargs.get('specialty', '').strip() if person_type == 'teacher' else False
+        degree_level = kwargs.get('degree_level') if person_type == 'teacher' else False
 
-        modality_id = kwargs.get('modality_id')
-        career_id = kwargs.get('career_id')
-
-        # 2. Extraer archivos (deben coincidir con name en el <input>)
+        # 2. Extraer archivos
         user_dni_file = kwargs.get('user_dni')
         user_diploma_file = kwargs.get('user_diploma')
         user_academic_record_file = kwargs.get('user_academic_record')
         user_passport_photo_file = kwargs.get('user_passport_photo')
+        cv_attachment_file = kwargs.get('cv_attachment')
 
-        # Helper para procesar archivos
         def _read_file(file_obj):
             if file_obj:
                 try:
                     return base64.b64encode(file_obj.read())
-                except Exception as e:
-                    raise ValidationError(f"Error al leer el archivo: {file_obj.filename} → {str(e)}")
+                except Exception:
+                    return False
             return False
 
-        try:
-            user_dni_b64 = _read_file(user_dni_file)
-            user_diploma_b64 = _read_file(user_diploma_file)
-            user_academic_record_b64 = _read_file(user_academic_record_file)
-            user_passport_photo_b64 = _read_file(user_passport_photo_file)
+        user_dni_b64 = _read_file(user_dni_file)
+        user_diploma_b64 = _read_file(user_diploma_file)
+        user_academic_record_b64 = _read_file(user_academic_record_file)
+        user_passport_photo_b64 = _read_file(user_passport_photo_file)
+        cv_attachment_b64 = _read_file(cv_attachment_file)
 
-        except ValidationError as e:
-            return request.render('university_application.error_page', {
-                'message': e.name
-            })
-
-        # 3. Validaciones obligatorias (según modelo)
+        # 3. Validaciones condicionales
         errors = []
-        if not name:
-            errors.append("Nombre es obligatorio.")
-        if not email:
-            errors.append("Correo electrónico es obligatorio.")
-        if not phone:
-            errors.append("Teléfono es obligatorio.")
-        if not modality_id:
-            errors.append("Modalidad es obligatoria.")
-        if not career_id:
-            errors.append("Carrera es obligatoria.")
+        if not name or not email or not phone or not vat:
+            errors.append("Datos personales incompletos.")
+        
         if not user_dni_b64:
-            errors.append("DNI (PDF) es obligatorio.")
-        if not user_diploma_b64:
-            errors.append("Diploma (PDF) es obligatorio.")
-        if not user_academic_record_b64:
-            errors.append("Historial académico (PDF) es obligatorio.")
+            errors.append("El DNI es obligatorio para todos los registros.")
+
+        if person_type == 'student':
+            if not career_id or not modality_id:
+                errors.append("Debe seleccionar Carrera y Modalidad.")
+            if not user_diploma_b64 or not user_academic_record_b64:
+                errors.append("Los documentos académicos son obligatorios para estudiantes.")
+        
+        if person_type == 'teacher':
+            if not cv_attachment_b64:
+                errors.append("El Curriculum Vitae es obligatorio para profesores.")
 
         if errors:
-            return request.render('university_application.error_page', {
-                'errors': errors
-            })
+            return request.render('university_application.error_page', {'errors': errors})
 
-        # 4. Crear partner (datos personales)
+        # Check if vat already exists to prevent SQL Unique Constraint error
+        existing_partner = request.env['res.partner'].sudo().search([('vat', '=', vat)], limit=1)
+        if existing_partner and existing_partner.email != email:
+             errors.append("El Documento de Identidad (RIF/Cedula) ya está registrado con otro correo electrónico.")
+             return request.render('university_application.error_page', {'errors': errors})
+
+        # 4. Partner
+        partner = request.env['res.partner'].sudo().search([('vat', '=', vat)], limit=1)
+        if not partner:
+            partner = request.env['res.partner'].sudo().search([('email', '=', email)], limit=1)
+            
         partner_vals = {
             'name': name,
-            'email,
-            'phone': phone,
-            'image_1920': user_passport_photo_b64,  # asigna foto directamente al partner
+            'email': email,
+            'vat': vat,
+            'number_phone': phone,
+            'person_type': person_type,
+            'image_1920': user_passport_photo_b64,
+            'specialty': specialty,
+            'degree_level': degree_level,
+            'cv_attachment': cv_attachment_b64,
         }
-        partner = request.env['res.partner'].sudo().create(partner_vals)
+        if partner:
+            partner.sudo().write(partner_vals)
+        else:
+            partner = request.env['res.partner'].sudo().create(partner_vals)
 
-        # 5. Crear solicitud
-        try:
-            application = request.env['university.application'].sudo().create({
-                'partner_id': partner.id,
-                'birth_date': birth_date,
-                'inscription_date': inscription_date,
-                'nationality': nationality,
-                'discapacity': discapacity,
-                'discapacity_description': discapacity_description,
-                'room_phone': room_phone,
-                'emergency_contact_name': emergency_contact_name,
-                'emergency_contact_phone': emergency_contact_phone,
-                'emergency_contact_relationship': emergency_contact_relationship,
-                'emergency_contact_direction': emergency_contact_direction,
-                'modality_id': int(modality_id),
-                'career_id': int(career_id),
-                'user_dni': user_dni_b64,
-                'user_diploma': user_diploma_b64,
-                'user_academic_record': user_academic_record_b64,
-                'state': 'sent',
-            })
-        except Exception as e:
-            return request.render('university_application.error_page', {
-                'message': f"Error al crear la solicitud: {str(e)}"
-            })
+        # 5. Solicitud (Si es estudiante)
+        if person_type == 'student':
+            try:
+                request.env['university.application'].sudo().create({
+                    'partner_id': partner.id,
+                    'birth_date': birth_date,
+                    'modality_id': int(modality_id),
+                    'career_id': int(career_id),
+                    'user_dni': user_dni_b64,
+                    'user_diploma': user_diploma_b64,
+                    'user_academic_record': user_academic_record_b64,
+                    'state': 'sent',
+                })
+            except Exception as e:
+                return request.render('university_application.error_page', {'message': str(e)})
+
+        return request.redirect('/enrollment/success')
 
         # 6. Redirigir a página de éxito (o renderizarla)
         return request.redirect('/enrollment/success')
