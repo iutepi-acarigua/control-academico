@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="career_sistemas" model="university.career">
+            <field name="name">Análisis en Sistemas (Desarrollo Web)</field>
+            <field name="code">SIS-WEB-01</field>
+            <field name="faculty">engineering</field>
+            <field name="description">Carrera enfocada en el desarrollo de software, arquitectura web y bases de datos.</field>
+        </record>
+
+        <record id="career_electronica" model="university.career">
+            <field name="name">Electrónica</field>
+            <field name="code">ELE-02</field>
+            <field name="faculty">engineering</field>
+            <field name="description">Especialidad en sistemas embebidos, circuitos electrónicos y automatización.</field>
+        </record>
+
+        <record id="career_administracion" model="university.career">
+            <field name="name">Administración</field>
+            <field name="code">ADM-03</field>
+            <field name="faculty">business</field>
+            <field name="description">Gestión de recursos, procesos empresariales y dirección organizacional.</field>
+        </record>
+    </data>
+</odoo>
