@@ -1,58 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Vista Lista de Carreras -->
     <record id="view_university_career_list" model="ir.ui.view">
         <field name="name">university.career.list</field>
         <field name="model">university.career</field>
         <field name="arch" type="xml">
-            <list string="University Careers">
-                <field name="name"/>
-                <field name="description"/>
-            </list>
+            <list string="Carreras Universitarias">
+                <field name="name" string="Nombre de la Carrera"/>
+                <field name="faculty" string="Facultad"/>
+                <field name="active" widget="boolean_toggle" string="Disponible"/>
+            </tree>
         </field>
     </record>
 
-    <!-- Vista Formulario de Carreras -->
     <record id="view_university_career_form" model="ir.ui.view">
         <field name="name">university.career.form</field>
         <field name="model">university.career</field>
         <field name="arch" type="xml">
-            <form string="University Career">
+            <form string="Carrera Universitaria">
                 <sheet>
+                    <widget name="web_ribbon" title="Archivada" bg_color="bg-danger" invisible="active"/>
+                    
+                    <div class="oe_title">
+                        <label for="name" string="Nombre de la Carrera"/>
+                        <h1>
+                            <field name="name" placeholder="Ej: Análisis en Sistemas"/>
+                        </h1>
+                    </div>
+                    
                     <group>
-                        <field name="name"/>
-                        <field name="description"/>
+                        <group string="Información Administrativa">
+                            <field name="faculty"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Detalles Técnicos">
+                            <field name="description" placeholder="Perfil del egresado..."/>
+                        </group>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <!-- Vista Lista de Modalidades -->
-    <record id="view_university_modality_list" model="ir.ui.view">
-        <field name="name">university.modality.list</field>
-        <field name="model">university.modality</field>
-        <field name="arch" type="xml">
-            <list string="University Modalities">
-                <field name="name"/>
-                <field name="description"/>
-            </list>
-        </field>
-    </record>
-
-    <!-- Vista Formulario de Modalidades -->
-    <record id="view_university_modality_form" model="ir.ui.view">
-        <field name="name">university.modality.form</field>
-        <field name="model">university.modality</field>
-        <field name="arch" type="xml">
-            <form string="University Modality">
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="description"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
+    <record id="action_university_career" model="ir.actions.act_window">
+        <field name="name">Oferta Académica</field>
+        <field name="res_model">university.career</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>
