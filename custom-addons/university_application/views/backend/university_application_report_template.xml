@@ -11,10 +11,10 @@
                             </div>
                             <div class="col-9">
                                 <h2 class="text-primary">REGISTRATION FICHE</h2>
-                                <h4><span t-esc="o.name"/></h4>
-                                <p class="mb-1"><strong>Role:</strong> <span t-esc="o.person_type.title()"/></p>
-                                <p class="mb-1"><strong>Status:</strong> <span t-esc="o.state.upper()"/></p>
-                                <p class="mb-1"><strong>Date:</strong> <span t-esc="o.inscription_date"/></p>
+                                <h4><span t-field="o.name"/></h4>
+                                <p class="mb-1"><strong>Role:</strong> <span t-field="o.person_type"/></p>
+                                <p class="mb-1"><strong>Status:</strong> <span t-field="o.state"/></p>
+                                <p class="mb-1"><strong>Date:</strong> <span t-field="o.inscription_date"/></p>
                             </div>
                         </div>
 
@@ -26,23 +26,23 @@
                             <tbody>
                                 <tr>
                                     <td width="30%"><strong>Identity Document (RIF/Cedula):</strong></td>
-                                    <td><span t-esc="o.vat"/></td>
+                                    <td><span t-field="o.vat"/></td>
                                 </tr>
                                 <tr>
                                     <td width="30%"><strong>Email:</strong></td>
-                                    <td><span t-esc="o.email"/></td>
+                                    <td><span t-field="o.email"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Phone:</strong></td>
-                                    <td><span t-esc="o.number_phone"/></td>
+                                    <td><span t-field="o.number_phone"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Birth Date:</strong></td>
-                                    <td><span t-esc="o.birth_date"/></td>
+                                    <td><span t-field="o.birth_date"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Nationality:</strong></td>
-                                    <td><span t-esc="o.nationality"/></td>
+                                    <td><span t-field="o.nationality"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -55,11 +55,11 @@
                             <tbody>
                                 <tr>
                                     <td width="30%"><strong>Career:</strong></td>
-                                    <td><span t-esc="o.career_id.name"/></td>
+                                    <td><span t-field="o.career_id.name"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Modality:</strong></td>
-                                    <td><span t-esc="o.modality_id.name"/></td>
+                                    <td><span t-field="o.modality_id.name"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -72,11 +72,11 @@
                             <tbody>
                                 <tr>
                                     <td width="30%"><strong>Specialty:</strong></td>
-                                    <td><span t-esc="o.specialty"/></td>
+                                    <td><span t-field="o.specialty"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Highest Degree:</strong></td>
-                                    <td><span t-esc="o.degree_level.title() if o.degree_level else ''"/></td>
+                                    <td><span t-field="o.degree_level"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -89,15 +89,15 @@
                             <tbody>
                                 <tr>
                                     <td width="30%"><strong>Contact Name:</strong></td>
-                                    <td><span t-esc="o.emergency_contact_name"/></td>
+                                    <td><span t-field="o.emergency_contact_name"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Relationship:</strong></td>
-                                    <td><span t-esc="o.emergency_contact_relationship"/></td>
+                                    <td><span t-field="o.emergency_contact_relationship"/></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Phone:</strong></td>
-                                    <td><span t-esc="o.emergency_contact_phone"/></td>
+                                    <td><span t-field="o.emergency_contact_phone"/></td>
                                 </tr>
                             </tbody>
                         </table>

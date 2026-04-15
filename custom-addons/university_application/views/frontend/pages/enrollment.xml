@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Plantilla de la Página de Inscripción -->
+    <!-- Enrollment Page Template -->
     <template id="enrollment_page_template" name="University Enrollment Form">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure oe_empty">
                 <section class="s_title parallax s_parallax_is_fixed bg-black-50 py-5" data-scroll-background-ratio="1">
-                    <span class="s_parallax_bg o_modified_image_to_bg" style="background-image: url('/university_application/static/src/img/university_bg.jpg'); background-position: 50% 50%;"/>
+                    <span class="s_parallax_bg o_modified_image_to_bg" style="background-image: url('/university_application/static/src/img/estudiante mujer.jpg'); background-position: 50% 50%;"/>
                     <div class="container text-center">
                         <h1 class="display-3 text-white">Enrollment Form</h1>
                         <p class="lead text-white-75">Join our academic community today.</p>
@@ -16,6 +16,18 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8 bg-white p-5 shadow-sm rounded">
+                                <!-- Error Messages -->
+                                <t t-if="errors">
+                                    <div class="alert alert-danger mb-4 animate__animated animate__shakeX shadow-sm border-0 border-start border-4 border-danger">
+                                        <h5 class="alert-heading fw-bold text-danger"><i class="fa fa-exclamation-triangle me-2"/> Please check the following:</h5>
+                                        <ul class="mb-0">
+                                            <t t-foreach="errors" t-as="error">
+                                                <li t-esc="error"/>
+                                            </t>
+                                        </ul>
+                                    </div>
+                                </t>
+
                                 <form action="/enrollment/submit" method="post" enctype="multipart/form-data" class="o_mark_required">
                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                     
@@ -24,37 +36,37 @@
                                         <div class="col-md-3 mb-3">
                                             <label for="person_type" class="form-label">I am applying as...</label>
                                             <select name="person_type" id="person_type" class="form-select" required="required" onchange="toggleFields()">
-                                                <option value="student">Student</option>
-                                                <option value="teacher">Teacher</option>
-                                                <option value="employee">Employee</option>
+                                                <option value="student" t-att-selected="values.get('person_type') == 'student'">Student</option>
+                                                <option value="teacher" t-att-selected="values.get('person_type') == 'teacher'">Teacher</option>
+                                                <option value="employee" t-att-selected="values.get('person_type') == 'employee'">Employee</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label for="vat" class="form-label">RIF / Cedula</label>
-                                            <input type="text" name="vat" id="vat" class="form-control" required="required"/>
+                                            <label for="vat" class="form-label">DNI / ID Card</label>
+                                            <input type="text" name="vat" id="vat" class="form-control" required="required" t-att-value="values.get('vat') or ''"/>
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <label for="name" class="form-label">Full Name</label>
-                                            <input type="text" name="name" id="name" class="form-control" required="required"/>
+                                            <input type="text" name="name" id="name" class="form-control" required="required" t-att-value="values.get('name') or ''"/>
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <label for="email" class="form-label">Email Address</label>
-                                            <input type="email" name="email" id="email" class="form-control" required="required"/>
+                                            <input type="email" name="email" id="email" class="form-control" required="required" t-att-value="values.get('email') or ''"/>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="number_phone" class="form-label">Phone Number</label>
-                                            <input type="text" name="number_phone" id="number_phone" class="form-control" required="required"/>
+                                            <input type="text" name="number_phone" id="number_phone" class="form-control" required="required" t-att-value="values.get('number_phone') or ''"/>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="birth_date" class="form-label">Birth Date</label>
-                                            <input type="date" name="birth_date" id="birth_date" class="form-control" required="required"/>
+                                            <input type="date" name="birth_date" id="birth_date" class="form-control" required="required" t-att-value="values.get('birth_date') or ''"/>
                                         </div>
                                     </div>
 
-                                    <!-- Campos Condicionales para Carreras (Solo Estudiantes) -->
+                                    <!-- Conditional Fields for Students -->
                                     <div id="academic_selection_div">
                                         <h3 class="mt-5 mb-4 text-primary border-bottom pb-2">Academic Selection</h3>
                                         <div class="row">
@@ -63,7 +75,7 @@
                                                 <select name="career_id" id="career_id" class="form-select">
                                                     <option value="">Select a career...</option>
                                                     <t t-foreach="careers" t-as="career">
-                                                        <option t-att-value="career.id" t-att-selected="str(career.id) == request.params.get('career_id')">
+                                                        <option t-att-value="career.id" t-att-selected="str(career.id) == str(values.get('career_id'))">
                                                             <t t-esc="career.name"/>
                                                         </option>
                                                     </t>
@@ -74,7 +86,9 @@
                                                 <select name="modality_id" id="modality_id" class="form-select">
                                                     <option value="">Select a modality...</option>
                                                     <t t-foreach="modalities" t-as="modality">
-                                                        <option t-att-value="modality.id"><t t-esc="modality.name"/></option>
+                                                        <option t-att-value="modality.id" t-att-selected="str(modality.id) == str(values.get('modality_id'))">
+                                                            <t t-esc="modality.name"/>
+                                                        </option>
                                                     </t>
                                                 </select>
                                             </div>
@@ -85,9 +99,10 @@
                                     <div class="mb-3">
                                         <label for="user_dni" class="form-label">DNI / ID Document</label>
                                         <input type="file" name="user_dni" id="user_dni" class="form-control" accept="application/pdf" required="required"/>
+                                        <p class="text-muted small mt-1"><i class="fa fa-info-circle"/> Even if you uploaded it before, please re-attach it if there was an error.</p>
                                     </div>
                                     
-                                    <!-- Documentos solo para estudiantes -->
+                                    <!-- Documents for students only -->
                                     <div id="student_docs_div">
                                         <div class="mb-3">
                                             <label for="user_diploma" class="form-label">High School Diploma</label>
@@ -99,20 +114,20 @@
                                         </div>
                                     </div>
 
-                                    <!-- Campos solo para profesores -->
+                                    <!-- Fields for teachers only -->
                                     <div id="teacher_fields_div" style="display:none;">
                                         <h3 class="mt-5 mb-4 text-primary border-bottom pb-2">Professional Information</h3>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="specialty" class="form-label">Specialty / Area of Expertise</label>
-                                                <input type="text" name="specialty" id="specialty" class="form-control"/>
+                                                <input type="text" name="specialty" id="specialty" class="form-control" t-att-value="values.get('specialty') or ''"/>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="degree_level" class="form-label">Highest Degree Level</label>
                                                 <select name="degree_level" id="degree_level" class="form-select">
-                                                    <option value="bachelor">Bachelor</option>
-                                                    <option value="master">Master</option>
-                                                    <option value="phd">PhD</option>
+                                                    <option value="bachelor" t-att-selected="values.get('degree_level') == 'bachelor'">Bachelor</option>
+                                                    <option value="master" t-att-selected="values.get('degree_level') == 'master'">Master</option>
+                                                    <option value="phd" t-att-selected="values.get('degree_level') == 'phd'">PhD</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -135,26 +150,25 @@
                                         var teacherFieldsDiv = document.getElementById('teacher_fields_div');
                                         
                                         if (personType === 'student') {
-                                            academicDiv.style.display = 'block';
-                                            studentDocsDiv.style.display = 'block';
-                                            teacherFieldsDiv.style.display = 'none';
+                                            if (academicDiv) academicDiv.style.display = 'block';
+                                            if (studentDocsDiv) studentDocsDiv.style.display = 'block';
+                                            if (teacherFieldsDiv) teacherFieldsDiv.style.display = 'none';
                                             document.getElementById('career_id').required = true;
                                             document.getElementById('modality_id').required = true;
                                         } else if (personType === 'teacher') {
-                                            academicDiv.style.display = 'none';
-                                            studentDocsDiv.style.display = 'none';
-                                            teacherFieldsDiv.style.display = 'block';
+                                            if (academicDiv) academicDiv.style.display = 'none';
+                                            if (studentDocsDiv) studentDocsDiv.style.display = 'none';
+                                            if (teacherFieldsDiv) teacherFieldsDiv.style.display = 'block';
                                             document.getElementById('career_id').required = false;
                                             document.getElementById('modality_id').required = false;
                                         } else {
-                                            academicDiv.style.display = 'none';
-                                            studentDocsDiv.style.display = 'none';
-                                            teacherFieldsDiv.style.display = 'none';
+                                            if (academicDiv) academicDiv.style.display = 'none';
+                                            if (studentDocsDiv) studentDocsDiv.style.display = 'none';
+                                            if (teacherFieldsDiv) teacherFieldsDiv.style.display = 'none';
                                             document.getElementById('career_id').required = false;
                                             document.getElementById('modality_id').required = false;
                                         }
                                     }
-                                    // Inicializar al cargar
                                     document.addEventListener('DOMContentLoaded', toggleFields);
                                 </script>
                             </div>

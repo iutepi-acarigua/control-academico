@@ -7,7 +7,7 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">university_application.report_application_fiche</field>
         <field name="report_file">university_application.report_application_fiche</field>
-        <field name="print_report_name">'Fiche_%s' % (object.name)</field>
+        <field name="print_report_name">'Ficha-Inscripcion_%s' % (object.name)</field>
         <field name="binding_model_id" ref="model_university_application"/>
         <field name="binding_type">report</field>
     </record>

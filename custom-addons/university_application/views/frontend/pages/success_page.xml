@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Plantilla de la Página de Éxito -->
+    <!-- Application Success Template -->
     <template id="success_page_template" name="Application Success">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure oe_empty">
@@ -14,7 +14,7 @@
                                 <hr class="my-4"/>
                                 <p>Our academic department will review your documents. Your application number is: <strong>#<t t-esc="application.id"/></strong>.</p>
                                 <div class="mt-4">
-                                    <a href="/university" class="btn btn-success btn-lg px-5 fw-bold">Back to Home</a>
+                                    <a href="/" class="btn btn-success btn-lg px-5 fw-bold">Back to Home</a>
                                 </div>
                             </div>
                         </div>

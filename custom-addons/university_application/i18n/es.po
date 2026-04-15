@@ -1,0 +1,560 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* university_application
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-15 00:20+0000\n"
+"PO-Revision-Date: 2026-04-15 00:20+0000\n"
+"Last-Translator: Gemini CLI\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: university_application
+#: model:ir.actions.report,name:university_application.action_report_university_application
+msgid "Registration Fiche"
+msgstr "Ficha de Inscripción"
+
+#. module: university_application
+#: model:ir.model,name:university_application.model_university_application
+msgid "University Enrollment Application"
+msgstr "Solicitud de Inscripción Universitaria"
+
+#. module: university_application
+#: model:ir.model,name:university_application.model_university_career
+#: model:ir.model.fields,field_description:university_application.field_university_application__career_id
+msgid "University Career"
+msgstr "Carrera Universitaria"
+
+#. module: university_application
+#: model:ir.model,name:university_application.model_university_modality
+#: model:ir.model.fields,field_description:university_application.field_university_application__modality_id
+msgid "University Inscription Modality"
+msgstr "Modalidad de Inscripción"
+
+#. module: university_application
+#: model:ir.model,name:university_application.model_university_subject
+msgid "University Subject"
+msgstr "Materia Universitaria"
+
+#. module: university_application
+#: model:ir.ui.menu,name:university_application.university_management_menu_root
+msgid "University Management"
+msgstr "Gestión Universitaria"
+
+#. module: university_application
+#: model:ir.ui.menu,name:university_application.university_application_menu_main
+msgid "Admissions"
+msgstr "Admisiones"
+
+#. module: university_application
+#: model:ir.ui.menu,name:university_application.university_application_menu_action
+#: model:ir.actions.act_window,name:university_application.action_university_application
+msgid "Applications"
+msgstr "Solicitudes"
+
+#. module: university_application
+#: model:ir.ui.menu,name:university_application.university_config_menu
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: university_application
+#: model:ir.ui.menu,name:university_application.university_career_menu_action
+msgid "Careers"
+msgstr "Carreras"
+
+#. module: university_application
+#: model:ir.ui.menu,name:university_application.university_modality_menu_action
+msgid "Modalities"
+msgstr "Modalidades"
+
+#. module: university_application
+#: model:ir.model.fields,field_description:university_application.field_university_application__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: university_application
+#: model:ir.model.fields.selection,name:university_application.selection__university_application__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: university_application
+#: model:ir.model.fields.selection,name:university_application.selection__university_application__state__sent
+msgid "Sent"
+msgstr "Enviada"
+
+#. module: university_application
+#: model:ir.model.fields.selection,name:university_application.selection__university_application__state__validated
+msgid "Validated"
+msgstr "Validada"
+
+#. module: university_application
+#: model:ir.model.fields.selection,name:university_application.selection__university_application__state__rejected
+msgid "Rejected"
+msgstr "Rechazada"
+
+#. module: university_application
+#: model:ir.model.fields.selection,name:university_application.selection__res_partner__person_type__student
+msgid "Student"
+msgstr "Estudiante"
+
+#. module: university_application
+#: model:ir.model.fields.selection,name:university_application.selection__res_partner__person_type__teacher
+msgid "Teacher"
+msgstr "Profesor"
+
+#. module: university_application
+#: model:ir.model.fields.selection,name:university_application.selection__res_partner__person_type__employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "REGISTRATION FICHE"
+msgstr "FICHA DE INSCRIPCIÓN"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Role:"
+msgstr "Rol:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Status:"
+msgstr "Estado:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Date:"
+msgstr "Fecha:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Personal Information"
+msgstr "Información Personal"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Identity Document (RIF/Cedula):"
+msgstr "Documento de Identidad (RIF/Cédula):"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Email:"
+msgstr "Correo Electrónico:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Birth Date:"
+msgstr "Fecha de Nacimiento:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Nationality:"
+msgstr "Nacionalidad:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Academic Program"
+msgstr "Programa Académico"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Career:"
+msgstr "Carrera:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Modality:"
+msgstr "Modalidad:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Professional Profile"
+msgstr "Perfil Profesional"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Specialty:"
+msgstr "Especialidad:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Highest Degree:"
+msgstr "Máximo Grado Académico:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Emergency Contact"
+msgstr "Contacto de Emergencia"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Contact Name:"
+msgstr "Nombre de Contacto:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "Relationship:"
+msgstr "Parentesco:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.report_application_fiche
+msgid "This document is an official record of the University Application System."
+msgstr "Este documento es un registro oficial del Sistema de Inscripciones Universitarias."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Build Your Future with Us"
+msgstr "Construye tu Futuro con Nosotros"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Join a global community of innovators. Start your 100% online enrollment process today."
+msgstr "Únete a una comunidad global de innovadores. Comienza tu proceso de inscripción 100% en línea hoy mismo."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Start Enrollment Now"
+msgstr "Iniciar Inscripción Ahora"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Explore Careers"
+msgstr "Explorar Carreras"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Student Login"
+msgstr "Acceso Estudiantes"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Create Account"
+msgstr "Crear Cuenta"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Admin Panel"
+msgstr "Panel Administrativo"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Go to my Account ("
+msgstr "Ir a mi Cuenta ("
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Modern Careers"
+msgstr "Carreras Modernas"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Years of Experience"
+msgstr "Años de Experiencia"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Academic Programs"
+msgstr "Programas Académicos"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Discover the career that will define your professional path."
+msgstr "Descubre la carrera que definirá tu camino profesional."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Enroll in this career"
+msgstr "Inscribirme en esta carrera"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "How to Enroll?"
+msgstr "¿Cómo Inscribirse?"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Complete your process in 4 simple steps."
+msgstr "Completa tu proceso en 4 simples pasos."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Choose Career"
+msgstr "Elige tu Carrera"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Select your vocation from our catalog."
+msgstr "Selecciona tu vocación de nuestro catálogo."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Fill Form"
+msgstr "Llena el Formulario"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Provide your personal information."
+msgstr "Proporciona tu información personal."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Upload Docs"
+msgstr "Sube tus Documentos"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Attach your documents (PDF)."
+msgstr "Adjunta tus documentos (PDF)."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Validation"
+msgstr "Validación"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Wait for our team to review everything."
+msgstr "Espera a que nuestro equipo revise todo."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Ready to start your journey?"
+msgstr "¿Listo para comenzar tu viaje?"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.landing_page_template
+msgid "Apply Now"
+msgstr "Postularme Ahora"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Enrollment Form"
+msgstr "Formulario de Inscripción"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Join our academic community today."
+msgstr "Únete a nuestra comunidad académica hoy mismo."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Please check the following:"
+msgstr "Por favor, verifique lo siguiente:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Personal Information"
+msgstr "Información Personal"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "I am applying as..."
+msgstr "Me postulo como..."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "DNI / ID Card"
+msgstr "DNI / Cédula"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Full Name"
+msgstr "Nombre Completo"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Email Address"
+msgstr "Correo Electrónico"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Phone Number"
+msgstr "Número de Teléfono"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Birth Date"
+msgstr "Fecha de Nacimiento"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Academic Selection"
+msgstr "Selección Académica"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Career"
+msgstr "Carrera"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Select a career..."
+msgstr "Seleccione una carrera..."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Modality"
+msgstr "Modalidad"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Select a modality..."
+msgstr "Seleccione una modalidad..."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Required Documents (PDF)"
+msgstr "Documentos Requeridos (PDF)"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "DNI / ID Document"
+msgstr "DNI / Documento de Identidad"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Even if you uploaded it before, please re-attach it if there was an error."
+msgstr "Incluso si lo subió antes, por favor vuelva a adjuntarlo si hubo un error."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "High School Diploma"
+msgstr "Título de Bachiller"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Academic Record"
+msgstr "Notas Certificadas"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Professional Information"
+msgstr "Información Profesional"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Specialty / Area of Expertise"
+msgstr "Especialidad / Área de Conocimiento"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Highest Degree Level"
+msgstr "Nivel Académico Alcanzado"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Curriculum Vitae (PDF)"
+msgstr "Resumen Curricular (PDF)"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.enrollment_page_template
+msgid "Submit Application"
+msgstr "Enviar Solicitud"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.success_page_template
+msgid "Success!"
+msgstr "¡Éxito!"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.success_page_template
+msgid "Your enrollment application for"
+msgstr "Tu solicitud de inscripción para"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.success_page_template
+msgid "has been submitted successfully."
+msgstr "ha sido enviada con éxito."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.success_page_template
+msgid "Our academic department will review your documents. Your application number is:"
+msgstr "Nuestro departamento académico revisará tus documentos. Tu número de solicitud es:"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.success_page_template
+msgid "Back to Home"
+msgstr "Volver al Inicio"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_home_menu_university
+msgid "My Inscriptions"
+msgstr "Mis Inscripciones"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_home_university
+msgid "Welcome to the Admissions Process!"
+msgstr "¡Bienvenido al Proceso de Admisión!"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_home_university
+msgid "Manage your applications from here."
+msgstr "Gestiona tus solicitudes desde aquí."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_home_university
+msgid "View my applications"
+msgstr "Ver mis solicitudes"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_home_university
+msgid "New Inscription"
+msgstr "Nueva Inscripción"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_home_university
+msgid "Check the status of your university procedures"
+msgstr "Consulta el estado de tus trámites universitarios"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "My Enrollment Applications"
+msgstr "Mis Solicitudes de Inscripción"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "New Application"
+msgstr "Nueva Solicitud"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "No applications found"
+msgstr "No se encontraron solicitudes"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "Your future starts here. Click the button above to enroll."
+msgstr "Tu futuro comienza aquí. Haz clic en el botón superior para inscribirte."
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "Application #"
+msgstr "Solicitud #"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "University Career"
+msgstr "Carrera Universitaria"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "Date"
+msgstr "Fecha"
+
+#. module: university_application
+#: model_terms:ir.ui.view,arch_db:university_application.portal_my_applications
+msgid "Status"
+msgstr "Estado"

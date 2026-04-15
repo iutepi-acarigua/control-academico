@@ -1,27 +1,44 @@
-/* Custom Styles for University Application */
+/* Custom Styles for University Application - University Identity (Red, Black, White) */
 
 :root {
-    --primary: #1A237E; /* Deep Navy Blue */
-    --accent: #FF6D00;  /* Vibrant Orange */
-    --primary-light: rgba(26, 35, 126, 0.1);
+    --primary: #CC0000; /* University Red */
+    --secondary: #1A1A1A; /* Deep Black */
+    --accent: #E60000;
+    --primary-light: rgba(204, 0, 0, 0.1);
+    --white: #FFFFFF;
 }
 
 .bg-primary {
-    background-color: var(--primary) !!important;
+    background-color: var(--primary) !important;
 }
 
 .text-primary {
-    color: var(--primary) !!important;
+    color: var(--primary) !important;
 }
 
 .btn-primary {
     background-color: var(--primary);
     border-color: var(--primary);
+    color: var(--white);
+    transition: all 0.3s ease;
+    font-weight: bold;
 }
 
 .btn-primary:hover {
-    background-color: #0D1642;
-    border-color: #0D1642;
+    background-color: #990000;
+    border-color: #990000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: var(--white);
 }
 
 .bg-primary-light {
@@ -35,7 +52,7 @@
 
 .hover-elevate:hover {
     transform: translateY(-10px);
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !!important;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
 }
 
 /* Hero Section Adjustments */
@@ -44,6 +61,7 @@
     overflow: hidden;
 }
 
+/* Overlay más oscuro para mejorar legibilidad sobre fotos */
 .bg-black-50::before {
     content: "";
     position: absolute;
@@ -51,7 +69,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.65);
     z-index: 1;
 }
 
@@ -60,7 +78,69 @@
     z-index: 2;
 }
 
+/* Form Styling */
+.o_mark_required .form-label {
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem var(--primary-light);
+}
+
+.card {
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Landing page link buttons */
+.btn-link.text-white-75 {
+    transition: all 0.2s ease;
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.btn-link.text-white-75:hover {
+    color: white !important;
+    text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    transform: translateY(-1px);
+}
+
+/* Portal Banner Customization */
+.portal-university-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
 /* Section Header Decoration */
 .border-white-25 {
-    border-color: rgba(255, 255, 255, 0.25) !!important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* --- OCULTAR ELEMENTOS POR DEFECTO DE ODOO --- */
+
+/* 1. Ocultar el Footer por completo */
+#bottom, footer {
+    display: none !important;
+}
+
+/* 2. Ocultar número de teléfono en el banner/header */
+header .list-inline-item:has(.fa-phone),
+header .list-inline-item:has(a[href^="tel:"]) {
+    display: none !important;
+}
+
+/* 3. Ocultar dirección y teléfono en la página de Contáctanos */
+.o_website_contact_info,
+.s_website_form_contact_info,
+[itemprop="telephone"],
+[itemprop="address"],
+address {
+    display: none !important;
+}
+/* Ocultar enlaces de llamada (tel:) en toda la página de contáctanos o frontend */
+main a[href^="tel:"] {
+    display: none !important;
+}
+main .fa-map-marker, main .fa-phone-square {
+    display: none !important;
 }

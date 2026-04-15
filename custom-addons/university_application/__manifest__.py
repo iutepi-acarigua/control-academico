@@ -12,7 +12,7 @@
         * Career and modality catalogs.
     """,
     'author': 'CachapaGroup',
-    'depends': ['base', 'website', 'mail', 'portal'],
+    'depends': ['base', 'website', 'mail', 'portal', 'auth_signup'],
     'data': [
         # Seguridad (Cargar primero)
         'security/ir.model.access.csv',
@@ -30,6 +30,7 @@
         'views/frontend/pages/landing_page.xml',
         'views/frontend/pages/enrollment.xml',
         'views/frontend/pages/success_page.xml',
+        'views/frontend/portal_templates.xml',
     ],
     'assets': {
         'web.assets_frontend': [
